@@ -23,13 +23,12 @@ public class StaffAccountSystemTest
     {
         Permission accountPermission = Permission.STAFF;
 
-        assertEquals(account.getPermission(), accountPermission);
         account.setPermission(Permission.STAFF);
         assertEquals(account.getPermission(), accountPermission);
     }
 
     @Test
-    public void testSettingInvalidPermissions()
+    public void testSettingName()
     {
 
     }
