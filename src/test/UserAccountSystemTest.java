@@ -35,7 +35,11 @@ public class UserAccountSystemTest {
 			int j = orderToCheck[i];
 			assertSame(accounts[j],accountSystem.getByID(ids[j]));
 		}
-		
+	}
+
+	@Test
+	public void testPassword() {
+
 	}
 }
 

@@ -11,4 +11,12 @@ public class Sale {
 	public void addPurchase(Product item, int quantity) {
 		
 	}
+
+	public void cancelOrder() {
+
+	}
+
+	public int getSaleQuantity() {
+		return 0;
+	}
 }
