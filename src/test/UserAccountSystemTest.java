@@ -27,7 +27,7 @@ public class UserAccountSystemTest {
 		UserAccountInterface[] accounts = new UserAccountInterface[5];
 		int[] ids = new int[5];
 		int[] orderToCheck = {0,2,1,3,2,4,4,3};
-		for(int i = 0; i<10; i++) {
+		for(int i = 0; i<ids.length; i++) {
 			accounts[i] = new DummyAccount();
 			ids[i] = accountSystem.add(accounts[i]);
 		}
@@ -37,5 +37,6 @@ public class UserAccountSystemTest {
 		}
 		
 	}
+	
 }
 

@@ -5,9 +5,9 @@ public class DiscountSystem {
 		
 	}
 	public Discount getDiscountById(int id) {
+		return null;
 		
 	}
-	public void
 	public void applyDiscounts(Sale sale) {
 		
 	}

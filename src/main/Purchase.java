@@ -11,6 +11,6 @@ public class Purchase {
 		this.product = product;
 		this.quantity = quantity;
 		this.isQuantity = isQuantity;
-		this.price = product.getPrice(quantityOrWeight)
+		this.price = product.getPrice(quantityOrWeight);
 	}
 }
