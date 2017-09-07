@@ -7,7 +7,7 @@ import org.junit.Before;
 
 import main.StaffAccountSystem;
 
-public class StaffAccountSystemTest
+public class StaffAccountTest
 {
     private StaffAccount acccount;
 
