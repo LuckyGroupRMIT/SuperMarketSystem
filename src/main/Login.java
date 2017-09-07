@@ -1,7 +1,7 @@
 package main;
 
 public class Login {
-	public int CheckDetails(int username, String password){
+	public static int checkDetails(int username, String password){
 		int tempUserID = username;
 		String tempUserPassword = password;
 		int pass = 0;
@@ -18,7 +18,7 @@ public class Login {
 		return pass;
 	}
 	
-	public int checkPermissions(int userID){
+	public static int checkPermissions(int userID){
 		int tempUserId = userID;
 		for (Accounts s: accounts){
 			if(s.getUserID() = tempUserID){
