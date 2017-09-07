@@ -1,6 +1,7 @@
 package main;
 
 public class Product {
+<<<<<<< HEAD
 	private String productID;
 	private int price;
 	private int currentStock;
@@ -73,4 +74,19 @@ public class Product {
 		setPrice(price);
 		return true;
 	}
+=======
+	// Get Price methods should raise an exception if a price is requested
+	// That they can't handle. e.g Brooms are asked for price by weight when
+	// they are priced by quantity
+
+	public float getPriceByQuantity() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public float getPriceByWeight() {
+		return 0;
+		
+	}
+
+>>>>>>> 07038a92089f1afe53d20ffe0835a6378583385e
 }
