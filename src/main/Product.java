@@ -1,18 +1,19 @@
 package main;
 
 public class Product {
-<<<<<<< HEAD
 	private String productID;
 	private int price;
 	private int currentStock;
 	private int restock;
 	private String supplier;
 	private int purchaseOrderPrice;
+	private PricingMethod pricingMethod;
 	
-	public Product(String productID, int price, String supplier, int purchaseOrderPrice){
+	public Product(String productID, int price,PricingMethod pricingMethod, String supplier, int purchaseOrderPrice){
 		this.productID = productID;
 		this.price = price;
 		this.supplier = supplier;
+		this.pricingMethod = pricingMethod;
 		this.purchaseOrderPrice = purchaseOrderPrice;
 	}
 	public Product(String productID, int price, int currentStock, int restock,String supplier, int purchaseOrderPrice){
@@ -69,12 +70,19 @@ public class Product {
 		this.purchaseOrderPrice = purchaseOrderPrice;
 	}
 	
-	public boolean changePrice(int price){
-		if (price > 0)
+	public void changePrice(int price) {
+		if (price >= 0) 
+		{
 		setPrice(price);
-		return true;
+		} else {
+			//throw something
+		}
 	}
-=======
+	public PricingMethod getPricingMethod() 
+	{
+		return this.pricingMethod;
+	}
+	
 	// Get Price methods should raise an exception if a price is requested
 	// That they can't handle. e.g Brooms are asked for price by weight when
 	// they are priced by quantity
@@ -87,6 +95,4 @@ public class Product {
 		return 0;
 		
 	}
-
->>>>>>> 07038a92089f1afe53d20ffe0835a6378583385e
 }
