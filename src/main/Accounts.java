@@ -1,3 +1,4 @@
+package main;
 
 public class Accounts {
 	private int username;

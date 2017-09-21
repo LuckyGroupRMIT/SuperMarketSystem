@@ -1,7 +1,6 @@
 package main;
 
-public class Product {
-	private String productID;
+public class ProductType {
 	private int price;
 	private int currentStock;
 	private int restock;
@@ -24,15 +23,6 @@ public class Product {
 		this.supplier = supplier;
 		this.purchaseOrderPrice = purchaseOrderPrice;
 	}
-
-	public String getProductID() {
-		return productID;
-	}
-
-	public void setProductID(String productID) {
-		this.productID = productID;
-	}
-
 	public int getPrice() {
 		return price;
 	}

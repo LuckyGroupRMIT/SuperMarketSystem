@@ -6,7 +6,7 @@ public class Purchase {
 	private int quantity;
 	private float price;
 	private float discount;
-	boolean isQuantity;
+	pricingMethod
 	public Purchase(Product product, int quantityOrWeight, boolean isQuantity, int quantity) {
 		this.product = product;
 		this.quantity = quantity;
@@ -16,7 +16,7 @@ public class Purchase {
 	public getProduct() {
 		return this.product;
 	}
-	public getQuanitty() {
+	public getQuantity() {
 		return this.quantity;
 	}
 	public getPrice() {
