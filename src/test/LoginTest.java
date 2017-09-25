@@ -3,14 +3,19 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import main.Database;
 import main.Login;
 import main.StaffAccount;
+import main.Permission;
 
 public class LoginTest {
 
+    StaffAccount temp;
+
 	@Before
 	public void setUp() throws Exception {
-		StaffAccount temp = new StaffAccount("user", "password", 1);
+		temp = new StaffAccount("user", "password", Permission.MANAGER);
+        Database.addObject(temp.getStaffID(), temp);
 	}
 
 	@Test
@@ -21,7 +26,7 @@ public class LoginTest {
 	
 	@Test
 	public void checkPermissionsTest() {
-		boolean marks = Login.checkPermissions("user");
-		assertTrue(marks);
+		Permission marks = Login.checkPermissions("user");
+		assertEquals(temp.getPermissions(), marks);
 	}
 }

@@ -4,11 +4,20 @@ public class Login
 {
 	public static boolean checkDetails(String userID, String password)
     {
+        StaffAccount account = (StaffAccount) Database.getByID(userID, StaffAccount.class);
+        if(account != null)
+        {
+            if (account.getPassword().equals(password))
+                return true;
+        }
         return false;
 	}
 	
-	public static boolean checkPermissions(String userID)
+	public static Permission checkPermissions(String userID)
     {
-        return false;
+        StaffAccount account = (StaffAccount) Database.getByID(userID, StaffAccount.class);
+        if(account != null)
+            return account.getPermissions();
+        return Permission.EMPTY;
 	}
 }

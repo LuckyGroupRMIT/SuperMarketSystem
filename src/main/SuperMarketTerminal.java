@@ -33,7 +33,7 @@ public class SuperMarketTerminal {
                     break;
                 case 3:
                     exitProgram = true;
-                    System.out.println("Exited Program");
+                    System.out.println("Goodbye!");
                     break;
                 default:
                     System.out.println("Error: Invalid option.");
@@ -49,27 +49,50 @@ public class SuperMarketTerminal {
         System.out.println("Purchasing");
     }
 
-    private static StaffAccount displayLogin()
+    private static void displayLogin()
     {
         StaffAccount accounts = null;
         String userId, password;
         Scanner reader = new Scanner(System.in);
         boolean exitloop = false;
 
-        System.out.println("\tStaff Login Screen\n");
+        System.out.println("\nStaff Login Screen\n");
 
         while (!exitloop)
         {
-            System.out.print("\nPlease enter userID: ");
-            userId = reader.next();
-            System.out.print("\nPlease enter password: ");
-            password = reader.next();
+            System.out.print("Please enter userID, or enter empty line to cancel: ");
+            userId = reader.nextLine();
+            if(userId.isEmpty())
+                break;
+            System.out.print("Please enter password, or enter empty line to cancel: ");
+            password = reader.nextLine();
+            if(password.isEmpty())
+                break;
 
             if(Login.checkDetails(userId, password))
-                exitloop = true;
-        }
+            {
+                switch (Login.checkPermissions(userId))
+                {
+                    case SALES:
+                        displayEmployeeMenu();
+                        break;
+                    case WAREHOUSE:
+                        displayWarehouseMenu();
+                        break;
+                    case MANAGER:
+                        displayManagerMenu();
+                        break;
+                    default:
+                        System.out.println("Error: Permission Denied.");
+                        break;
+                }
 
-        return accounts;
+                exitloop = true;
+            }
+
+            else
+                System.out.println("Error: invalid username or password, please try again.");
+        }
     }
 
     private static void displayManagerMenu()
