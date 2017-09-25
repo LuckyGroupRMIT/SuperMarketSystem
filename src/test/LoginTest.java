@@ -1,32 +1,27 @@
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import main.Login;
+import main.StaffAccount;
 
 public class LoginTest {
 
 	@Before
 	public void setUp() throws Exception {
-		List<Accounts> accounts = new ArrayList<>();
-		Accounts temp = new Accounts(01, password, 1);
-		accounts.add(temp);
+		StaffAccount temp = new StaffAccount("user", "password", 1);
 	}
 
 	@Test
-	public void test1() {
-		int marks = Login.checkDetails(01, password);
-		assertEquals(1, marks);
+	public void checkDetailsTest() {
+		boolean marks = Login.checkDetails("user", "password");
+		assertTrue(marks);
 	}
 	
 	@Test
-	public void test2() {
-		int marks = Login.checkPermissions(01);
-		assertEquals(1, marks );
+	public void checkPermissionsTest() {
+		boolean marks = Login.checkPermissions("user");
+		assertTrue(marks);
 	}
-
 }

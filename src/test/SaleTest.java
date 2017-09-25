@@ -2,7 +2,7 @@ package test;
 
 import static org.junit.Assert.*;
 
-import main.Product;
+import main.ProductType;
 import org.junit.Before;
 import org.junit.Test;
 

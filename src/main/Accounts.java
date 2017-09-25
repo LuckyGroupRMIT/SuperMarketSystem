@@ -1,6 +1,7 @@
 package main;
 
-public class Accounts {
+public class Accounts
+{
 	private int username;
 	private String password;
 	private int permission;
