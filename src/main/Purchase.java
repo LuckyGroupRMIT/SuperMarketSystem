@@ -33,10 +33,6 @@ public class Purchase {
 		double newDiscountedPrice = this.basePrice - discountValue;
 		if (newDiscountedPrice < this.discountedPrice) {
 			this.discountedPrice = newDiscountedPrice;
-<<<<<<< HEAD
-			this.discountedPrice = Math.max(0, this.discountedPrice);
-=======
->>>>>>> 395c1c54385a1e6a97dd6c873f597fa8579dcb84
 			return true;
 		} else {
 			return false;
