@@ -2,7 +2,7 @@ package main;
 
 public class Shop {
 	public int addItem(int productID, int amount){
-		for (Product p: products)
+		for (ProductType p: products)
 		return 0;
 	}
 	public int totalPrice(){

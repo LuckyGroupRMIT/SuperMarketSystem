@@ -2,27 +2,44 @@ package main;
 
 public class Purchase {
 	// Represents a purchase of a certain item for a certified price'
-	private Product product;
-	private int quantity;
-	private float price;
-	private float discount;
-	pricingMethod
-	public Purchase(Product product, int quantityOrWeight, boolean isQuantity, int quantity) {
+	private ProductType product;
+	private int amount;
+	private double basePrice;
+	private double discountedPrice;
+	private PricingMethod pricingMethod;
+	public Purchase(ProductType product, PricingMethod pricingMethod, int amount ) {
 		this.product = product;
-		this.quantity = quantity;
-		this.isQuantity = isQuantity;
-		this.price = product.getPrice(quantityOrWeight);
+		this.amount = amount;
+		this.basePrice = product.getBasePrice(pricingMethod,amount);
+		this.discountedPrice = basePrice;
 	}
-	public getProduct() {
+	public ProductType getProduct() {
 		return this.product;
 	}
-	public getQuantity() {
-		return this.quantity;
+	public int getAmount() {
+		return this.amount;
 	}
-	public getPrice() {
-		return this.normalPrice;
+	public double getPrice() {
+		return this.basePrice;
 	}
-	public getDiscount() {
-		return this.discount();
+	public double getDiscountedPrice() {
+		return this.discountedPrice;
+	}
+	public PricingMethod PricingMethod() {
+		return this.pricingMethod;
+	}
+	public boolean applyDiscount(double discountValue) {
+		// Discounts don't stack. Returns true if the discount applies, false otherwise
+		double newDiscountedPrice = this.basePrice - discountValue;
+		if (newDiscountedPrice < this.discountedPrice) {
+			this.discountedPrice = newDiscountedPrice;
+			this.discountedPrice = Math.max(0, this.discountedPrice);
+			return true;
+		} else {
+			return false;
+		}	
+	}
+	public void resetDiscounts() {
+		this.discountedPrice = this.basePrice;
 	}
 }

@@ -77,12 +77,9 @@ public class ProductType {
 	// That they can't handle. e.g Brooms are asked for price by weight when
 	// they are priced by quantity
 
-	public float getPriceByQuantity() {
+
+	public float getBasePrice(PricingMethod pricingMethod, int amount) {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-	public float getPriceByWeight() {
-		return 0;
-		
 	}
 }
