@@ -11,7 +11,7 @@ public class Purchase {
 		this.product = product;
 		this.amount = amount;
 		this.basePrice = product.getBasePrice(pricingMethod,amount);
-		this.discountedPrice = basePrice;
+		this.discountedPrice = this.basePrice;
 	}
 	public ProductType getProduct() {
 		return this.product;
@@ -25,7 +25,7 @@ public class Purchase {
 	public double getDiscountedPrice() {
 		return this.discountedPrice;
 	}
-	public PricingMethod PricingMethod() {
+	public PricingMethod getPricingMethod() {
 		return this.pricingMethod;
 	}
 	public boolean applyDiscount(double discountValue) {
