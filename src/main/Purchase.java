@@ -41,4 +41,11 @@ public class Purchase {
 	public void resetDiscounts() {
 		this.discountedPrice = this.basePrice;
 	}
+	public double getUndiscountedPrice() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public void setDiscountedPrice(double newDiscountedPrice) {
+		this.discountedPrice = newDiscountedPrice;
+	}
 }
