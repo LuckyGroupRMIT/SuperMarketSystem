@@ -2,15 +2,15 @@ package main;
 
 public class StaffAccount extends UserAccount
 {
-    private int permissions;
+    private String permissions;
 
-    public StaffAccount(String username, String password, int permissions)
+    public StaffAccount(String username, String password, String permissions)
     {
         super(username, password);
         this.permissions = permissions;
     }
 
-    public int getPermissions() {
+    public String getPermissions() {
         return permissions;
     }
 }
