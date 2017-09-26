@@ -13,11 +13,12 @@ public class Login
         return false;
 	}
 	
-	public static Permission checkPermissions(String userID)
+	public static String checkPermissions(String userID)
     {
         StaffAccount account = (StaffAccount) Database.getByID(userID, StaffAccount.class);
         if(account != null)
             return account.getPermissions();
-        return Permission.EMPTY;
+        else
+        	return null;
 	}
 }
