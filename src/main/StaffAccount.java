@@ -4,16 +4,16 @@ public class StaffAccount
 {
     private String staffID;
     private String password;
-    private int permissions;
+    private Permission permissions;
 
-    public StaffAccount(String staffID, String password, int permissions)
+    public StaffAccount(String staffID, String password, Permission permissions)
     {
         this.staffID = staffID;
         this.password = password;
         this.permissions = permissions;
     }
 
-    public int getPermissions() {
+    public Permission getPermissions() {
         return permissions;
     }
 

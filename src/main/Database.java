@@ -4,14 +4,14 @@ import java.util.*;
 
 public class Database
 {
-    private static HashMap<String, Product> ProductHash = new HashMap<>();
+    private static HashMap<String, ProductType> ProductHash = new HashMap<>();
     private static HashMap<String, StaffAccount> AccountHash = new HashMap<>();
     private static HashMap<String, Discount> DiscountHash = new HashMap<>();
 
     public static boolean addObject(String key, Object value)
     {
-        if(value instanceof Product) {
-            ProductHash.put(key, ((Product) value));
+        if(value instanceof ProductType) {
+            ProductHash.put(key, ((ProductType) value));
             return true;
         }
 
@@ -32,7 +32,7 @@ public class Database
     {
         Object object = null;
 
-        if(type == Product.class)
+        if(type == ProductType.class)
             object = ProductHash.get(key);
         else if(type == StaffAccount.class)
             object = AccountHash.get(key);
@@ -44,7 +44,7 @@ public class Database
 
     public static boolean removeObject(String key, Class type)
     {
-        if(type == Product.class)
+        if(type == ProductType.class)
             if (ProductHash.remove(key) != null)
                 return true;
         else if(type == StaffAccount.class)
@@ -58,23 +58,15 @@ public class Database
         return false;
     }
 
-    public static ArrayList<Product> listAllProducts()
+    public static ArrayList<ProductType> listAllProducts()
     {
-        ArrayList<Product> products = null;
-
-        Collection<Product> values = ProductHash.values();
-        products = new ArrayList<>(values);
-
-        return products;
+        Collection<ProductType> values = ProductHash.values();
+        return new ArrayList<>(values);
     }
 
     public static ArrayList<StaffAccount> listAllAccounts()
     {
-        ArrayList<StaffAccount> products = null;
-
         Collection<StaffAccount> values = AccountHash.values();
-        products = new ArrayList<>(values);
-
-        return products;
+        return new ArrayList<>(values);
     }
 }

@@ -47,7 +47,12 @@ public class ProductType {
 	public String getSupplier() {
 		return supplier;
 	}
-	// Get Price methods should raise an exception if a price is requested
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
+    }
+
+    // Get Price methods should raise an exception if a price is requested
 	// That they can't handle. e.g Brooms are asked for price by weight when
 	// they are priced by quantity
 	public ArrayList<Discount> getProductSpecificDiscounts() {

@@ -11,12 +11,12 @@ import main.Sale;
 public class SaleTest {
 
     private Sale sale;
-    private Product product;
+    private ProductType product;
 
     @Before
     public void setUp() {
         sale = new Sale();
-        product = new Product();
+        product = new ProductType();
     }
 
     @Test

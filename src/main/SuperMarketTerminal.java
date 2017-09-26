@@ -12,7 +12,8 @@ public class SuperMarketTerminal {
 	private static void displayInitialMenu()
     {
 		boolean exitProgram = false;
-		Scanner reader = new Scanner(System.in);  // Reading from System.in
+		Scanner reader= new Scanner(System.in);  // Reading from System.in
+        int input;
 
 		while (!exitProgram)
         {
@@ -21,7 +22,7 @@ public class SuperMarketTerminal {
             System.out.println("3. Quit");
 			System.out.print("\n\nEnter a number to select option: ");
 
-			int input = reader.nextInt(); // Scans the next token of the input as an int.
+			input = reader.nextInt(); // Scans the next token of the input as an int.
 
 			switch (input)
             {
@@ -29,10 +30,12 @@ public class SuperMarketTerminal {
                     displayPurchaseMenu();
                     break;
                 case 2:
-                    displayLogin();
+//                    displayLogin();
+                    Manager.displayManagerMenu();
                     break;
                 case 3:
                     exitProgram = true;
+                    reader.close();
                     System.out.println("Goodbye!");
                     break;
                 default:
@@ -40,8 +43,6 @@ public class SuperMarketTerminal {
                     break;
 			}
 		}
-
-		reader.close();
 	}
 
 	private static void displayPurchaseMenu()
@@ -80,7 +81,7 @@ public class SuperMarketTerminal {
                         displayWarehouseMenu();
                         break;
                     case MANAGER:
-                        displayManagerMenu();
+                        Manager.displayManagerMenu();
                         break;
                     default:
                         System.out.println("Error: Permission Denied.");
@@ -95,19 +96,74 @@ public class SuperMarketTerminal {
         }
     }
 
-    private static void displayManagerMenu()
-    {
-
-    }
-
     private static void displayWarehouseMenu()
     {
+        boolean exitProgram = false;
+        Scanner reader = new Scanner(System.in);  // Reading from System.in
 
+        while (!exitProgram)
+        {
+            System.out.println("1. Purchase Mode");
+            System.out.println("2. Staff Login");
+            System.out.println("3. Quit");
+            System.out.print("\n\nEnter a number to select option: ");
+
+            int input = reader.nextInt(); // Scans the next token of the input as an int.
+
+            switch (input)
+            {
+                case 1:
+                    displayPurchaseMenu();
+                    break;
+                case 2:
+                    displayLogin();
+                    break;
+                case 3:
+                    exitProgram = true;
+                    System.out.println("Goodbye!");
+                    break;
+                default:
+                    System.out.println("Error: Invalid option.");
+                    break;
+            }
+        }
+
+        reader.close();
     }
 
     private static void displayEmployeeMenu()
     {
+        boolean exitProgram = false;
+        Scanner reader = new Scanner(System.in);  // Reading from System.in
 
+        while (!exitProgram)
+        {
+            System.out.println("1. Purchase Mode");
+            System.out.println("2. Staff Login");
+            System.out.println("3. Quit");
+            System.out.print("\n\nEnter a number to select option: ");
+
+            int input = reader.nextInt(); // Scans the next token of the input as an int.
+
+            switch (input)
+            {
+                case 1:
+                    displayPurchaseMenu();
+                    break;
+                case 2:
+                    displayLogin();
+                    break;
+                case 3:
+                    exitProgram = true;
+                    System.out.println("Goodbye!");
+                    break;
+                default:
+                    System.out.println("Error: Invalid option.");
+                    break;
+            }
+        }
+
+        reader.close();
     }
 
 }

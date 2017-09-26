@@ -1,22 +1,21 @@
 import static org.junit.Assert.*;
 
+import main.ProductType;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.Product;
 import main.Database;
-import main.PricingMethod;
 
 import java.util.ArrayList;
 
 public class DatabaseTest
 {
-    private Product item;
-    private ArrayList<Product> itemList;
+    private ProductType item;
+    private ArrayList<ProductType> itemList;
 
     @Before
     public void setUp() throws Exception {
-        item = new Product("item", 560, PricingMethod.QUANTITY, "item co", 500);
+        item = new ProductType("P0001", "item", "item co");
         itemList = new ArrayList<>();
         itemList.add(item);
     }
@@ -41,7 +40,7 @@ public class DatabaseTest
     public void listAllObjectsTest() {
         boolean tempBool = Database.addObject(item.getProductID(), item);
         assertTrue(tempBool);
-        ArrayList<Product> tempList = Database.listAllProducts();
+        ArrayList<ProductType> tempList = Database.listAllProducts();
         assertTrue(itemList.containsAll(tempList));
     }
 }
