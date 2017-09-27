@@ -1,10 +1,11 @@
 package main;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-public class ProductType {
+public class ProductType implements Serializable{
 	private int currentStock;
 	private int restock;
 	private String name;

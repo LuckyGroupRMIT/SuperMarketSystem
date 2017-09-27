@@ -1,5 +1,6 @@
 package main;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class SuperMarketTerminal {
@@ -7,6 +8,11 @@ public class SuperMarketTerminal {
 
     public static void main(String[] args) {
         displayInitialMenu();
+        try {
+            Database.saveAllMaps();
+        }catch (IOException io){
+            io.printStackTrace();
+        }
     }
 
 	private static void displayInitialMenu()
@@ -65,6 +71,12 @@ public class SuperMarketTerminal {
             userId = reader.nextLine();
             if(userId.isEmpty())
                 break;
+            if(Database.getByID(userId, StaffAccount.class) == null)
+            {
+                System.out.println("Error: account with that id not found");
+                continue;
+            }
+
             System.out.print("Please enter password, or enter empty line to cancel: ");
             password = reader.nextLine();
             if(password.isEmpty())

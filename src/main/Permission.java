@@ -1,6 +1,8 @@
 package main;
 
-public enum Permission {
+import java.io.Serializable;
+
+public enum Permission implements Serializable {
     EMPTY,
     SALES,
     WAREHOUSE,

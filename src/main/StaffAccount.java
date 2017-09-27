@@ -1,6 +1,8 @@
 package main;
 
-public class StaffAccount
+import java.io.Serializable;
+
+public class StaffAccount implements Serializable
 {
     private String staffID;
     private String password;
