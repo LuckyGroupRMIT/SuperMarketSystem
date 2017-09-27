@@ -17,6 +17,7 @@ public class ProductType implements Serializable{
 		this. productID = productID;
 		this.setName(name);
 		this.supplier = supplier;
+		prices = new HashMap<>();
 	}
 	public Double getBasePrice(PricingMethod x, int amount) {
 		return this.prices.get(x);

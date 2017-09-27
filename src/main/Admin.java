@@ -66,24 +66,33 @@ public class Admin
             if(tempName.isEmpty())
                 break;
 
+            System.out.print("Please enter the price per amount of new product, or enter empty line to cancel: ");
+            String tempPrice = reader.nextLine();
+            if(tempPrice.isEmpty())
+                break;
+
             System.out.print("Please enter the name of new product supplier, or enter empty line to cancel: ");
             String tempSupplier = reader.nextLine();
             if(tempSupplier.isEmpty())
                 break;
 
             newProduct = new ProductType(tempId, tempName, tempSupplier);
+            newProduct.setBasePrice(PricingMethod.QUANTITY, Double.parseDouble(tempPrice));
             System.out.println("New product is " + newProduct.getProductID() + " - " + newProduct.getName() + " - "
-             + newProduct.getSupplier());
+             + newProduct.getSupplier() + " $" + newProduct.getBasePrice(PricingMethod.QUANTITY, 1));
             System.out.print("Is this correct? (Y/N): ");
             String inp = reader.nextLine();
             if(inp.equalsIgnoreCase("Y"))
             {
                 if(Database.addObject(newProduct.getProductID(), newProduct)) {
                     System.out.println("New product added successfully!\n");
-                    exitLoop = true;
                 }
                 else
                     System.out.println("Error: failed to add object");
+                System.out.print("Do you want to add another product? (Y/N): ");
+                inp = reader.nextLine();
+                if(inp.equalsIgnoreCase("N"))
+                    exitLoop = true;
             }
         }
 

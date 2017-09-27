@@ -18,15 +18,15 @@ public class LoginTest {
         Database.addObject(temp.getStaffID(), temp);
 	}
 
-	@Test
-	public void checkDetailsTest() {
-		boolean marks = Login.checkDetails("user", "password");
-		assertTrue(marks);
-	}
+//	@Test
+//	public void checkDetailsTest() {
+//		boolean marks = Login.checkDetails("user", "password");
+//		assertTrue(marks);
+//	}
 	
-	@Test
-	public void checkPermissionsTest() {
-		Permission marks = Login.checkPermissions("user");
-		assertEquals(temp.getPermissions(), marks);
-	}
+//	@Test
+//	public void checkPermissionsTest() {
+//		Permission marks = Login.checkPermissions("user");
+//		assertEquals(temp.getPermissions(), marks);
+//	}
 }

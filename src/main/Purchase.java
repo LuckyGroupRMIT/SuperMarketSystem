@@ -42,8 +42,7 @@ public class Purchase {
 		this.discountedPrice = this.basePrice;
 	}
 	public double getUndiscountedPrice() {
-		// TODO Auto-generated method stub
-		return 0;
+		return basePrice;
 	}
 	public void setDiscountedPrice(double newDiscountedPrice) {
 		this.discountedPrice = newDiscountedPrice;
