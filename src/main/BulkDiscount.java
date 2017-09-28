@@ -14,14 +14,16 @@ public class BulkDiscount implements Discount {
 
 	@Override
 	public double apply(Purchase purchase) {
-		if (purchase.getPricingMethod == this.pricingMethod) {
+		if (purchase.getPricingMethod() == this.pricingMethod) {
 			if (purchase.getAmount()>this.amount) {
+				double oldDiscountedPrice = purchase.getDiscountedPrice();
 				double newDiscountedPrice = purchase.getUndiscountedPrice()*(1d-this.percentage);
 				if (newDiscountedPrice<purchase.getDiscountedPrice()) {
-					
+					return oldDiscountedPrice-newDiscountedPrice;
 				}
 			}
 		}
+		return 0;
 	}
 
 }
