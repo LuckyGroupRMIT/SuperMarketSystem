@@ -1,6 +1,8 @@
 package main;
 
-public class BulkDiscount implements Discount {
+import java.io.Serializable;
+
+public class BulkDiscount implements Discount, Serializable {
 	PricingMethod pricingMethod;
 	String name;
 	int amount;
@@ -13,9 +15,20 @@ public class BulkDiscount implements Discount {
 	public String getName() {
 		return this.name;
 	}
-	
 
-	@Override
+    public String getName() {
+        return name;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public double getPercentage() {
+        return percentageOff;
+    }
+
+    @Override
 	public double apply(Purchase purchase) {
 		if (purchase.getPricingMethod() == this.pricingMethod) {
 			if (purchase.getAmount()>=this.amount) {

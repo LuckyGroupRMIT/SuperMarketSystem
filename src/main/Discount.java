@@ -1,6 +1,6 @@
 package main;
 
-public interface Discount {
+public interface Discount{
 
 	double apply(Purchase eachPurchase);
 

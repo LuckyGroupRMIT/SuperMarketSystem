@@ -1,50 +1,64 @@
 package main;
 
-public class Purchase {
+import java.io.Serializable;
+
+public class Purchase implements Serializable{
 	// Represents a purchase of a certain item for a certified price'
+    private static final long serialVersionUID = 1113799434508676095L;
+
 	private ProductType product;
-	private int amount;
-	private double basePrice;
-	private double discountedPrice;
+	private int cartQuant;
+	private double cartPrice;
+	private double cartTotal;
 	private PricingMethod pricingMethod;
+
 	public Purchase(ProductType product, int amount ) {
 		this.product = product;
-		this.amount = amount;
-		this.basePrice = product.getBasePrice(amount);
-		this.discountedPrice = this.basePrice;
+		this.cartQuant = amount;
+		this.cartPrice = product.getBasePrice(amount);
+		this.cartTotal = this.cartPrice;
 	}
+
 	public ProductType getProduct() {
 		return this.product;
 	}
+
 	public int getAmount() {
-		return this.amount;
+		return this.cartQuant;
 	}
+
 	public double getPrice() {
-		return this.basePrice;
+		return this.cartPrice;
 	}
+
 	public double getDiscountedPrice() {
-		return this.discountedPrice;
+		return this.cartTotal;
 	}
+
 	public PricingMethod getPricingMethod() {
 		return this.pricingMethod;
 	}
+
 	public boolean applyDiscount(double discountValue) {
 		// Discounts don't stack. Returns true if the discount applies, false otherwise
-		double newDiscountedPrice = this.basePrice - discountValue;
-		if (newDiscountedPrice < this.discountedPrice) {
-			this.discountedPrice = newDiscountedPrice;
+		double newDiscountedPrice = this.cartPrice - discountValue;
+		if (newDiscountedPrice < this.cartTotal) {
+			this.cartTotal = newDiscountedPrice;
 			return true;
 		} else {
 			return false;
 		}	
 	}
+
 	public void resetDiscounts() {
-		this.discountedPrice = this.basePrice;
+		this.cartTotal = this.cartPrice;
 	}
+
 	public double getUndiscountedPrice() {
-		return basePrice;
+		return cartPrice;
 	}
+
 	public void setDiscountedPrice(double newDiscountedPrice) {
-		this.discountedPrice = newDiscountedPrice;
+		this.cartTotal = newDiscountedPrice;
 	}
 }

@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Login
@@ -29,7 +30,7 @@ public class Login
             if(password.isEmpty())
                 break;
 
-            if(checkDetails(userId, password))
+            if(checkStaffDetails(userId, password))
             {
                 if(checkPermissions(userId) == Permission.EMPTY)
                     System.out.println("Error: permission denied");
@@ -44,20 +45,31 @@ public class Login
         return Permission.EMPTY;
     }
 
-	private static boolean checkDetails(String userID, String password)
+	public static boolean checkStaffDetails(String userID, String password)
     {
-        StaffAccount account = (StaffAccount) Database.getByID(userID, StaffAccount.class);
-        if(account != null)
-        {
-            if (account.getPassword().equals(password))
+        ArrayList<StaffAccount> staffAccounts = Database.listAllStaff();
+
+        for (StaffAccount staffAccount: staffAccounts)
+            if (staffAccount.getID().equals(userID) && staffAccount.getPassword().equals(password))
                 return true;
-        }
+
         return false;
 	}
-	
-	private static Permission checkPermissions(String userID)
+
+	public static boolean checkCustomerDetails(String userID)
     {
-        StaffAccount account = (StaffAccount) Database.getByID(userID, StaffAccount.class);
+        ArrayList<CustomerAccount> customerAccounts = Database.listAllCustomers();
+
+        for (CustomerAccount customerAccount: customerAccounts)
+            if (customerAccount.getID().equals(userID))
+                return true;
+
+        return false;
+    }
+	
+	public static Permission checkPermissions(String userID)
+    {
+        StaffAccount account = (StaffAccount) Database.getByID(userID, UserAccount.class);
         if(account != null)
             return account.getPermissions();
         else

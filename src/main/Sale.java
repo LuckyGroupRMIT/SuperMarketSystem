@@ -1,11 +1,13 @@
 package main;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Sale {
+public class Sale implements Serializable{
 	// A sale consists of a list of purchases and a list of applicable
 	// discounts. Since globals aren't going to be used each sale needs to
 	// be passed a
+    private static final long serialVersionUID = 1113799434508676095L;
 	private ArrayList<Purchase> purchases;
 	private ArrayList<Discount> discounts;
 	private Date date;
@@ -23,6 +25,7 @@ public class Sale {
 	public Sale() {
 		this.purchases = new ArrayList<Purchase>();
 		this.discounts = new ArrayList<Discount>();
+		date = new Date();
 	}
 	
 	public void recalculateDiscounts() {
@@ -52,6 +55,7 @@ public class Sale {
 		}
 		return sum;
 	}
+<<<<<<< HEAD
 	public void setCustomer(CustomerAccount c) {
 		this.customer = c;
 	}
@@ -64,6 +68,18 @@ public class Sale {
 	public getDate(Date date) {
 		return this.date;
 	}
+=======
+
+	public double getUndiscountedTotal()
+    {
+        double sum = 0;
+        for(Purchase purchase: purchases)
+        {
+            sum += purchase.getUndiscountedPrice();
+        }
+        return sum;
+    }
+>>>>>>> ImplementGUI
 	
 	public void addPurchase(Purchase purchase) {
 		this.purchases.add(purchase);
@@ -74,4 +90,8 @@ public class Sale {
 		this.purchases.remove(i-1);
 		this.recalculateDiscounts();
 	}
+
+    public Date getDate() {
+        return date;
+    }
 }

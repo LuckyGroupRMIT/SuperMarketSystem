@@ -2,10 +2,14 @@ package main;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class ProductType implements Serializable{
+<<<<<<< HEAD
 	private String name;
+=======
+    private static final long serialVersionUID = 1113799434508676095L;
+
+>>>>>>> ImplementGUI
 	private int currentStock;
 	private int restockAmount;
 	private String supplier;
@@ -24,8 +28,9 @@ public class ProductType implements Serializable{
 		this.restockAmount = restockAmount; 
 		this.discounts = new ArrayList<Discount>();
 	}
+
 	public Double getBasePrice(int amount) {
-		return this.basePrice*amount;
+		return this.basePrice *amount;
 	}
 	public void setBasePrice(double price) {
 		this.basePrice = price;
@@ -70,12 +75,15 @@ public class ProductType implements Serializable{
 	public ArrayList<Discount> getProductSpecificDiscounts() {
 		return this.discounts;
 	}
+
 	public String getProductID() {
 		return productID;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox minHeight="350.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.gui.AdminController">
+   <children>
+      <VBox VBox.vgrow="ALWAYS">
+         <children>
+            <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+               <tabs>
+                  <Tab fx:id="prodTab" text="Products">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="prodTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <columns>
+                                    <TableColumn fx:id="prodID" editable="false" prefWidth="86.0" text="ID" />
+                                    <TableColumn fx:id="prodName" prefWidth="152.0" text="Name" />
+                                    <TableColumn fx:id="prodSupp" prefWidth="217.0" text="Supplier" />
+                                    <TableColumn fx:id="prodPrice" prefWidth="116.0" text="Price per Item" />
+                                    <TableColumn prefWidth="128.0" text="Discount" />
+                                    <TableColumn fx:id="prodStock" prefWidth="116.0" text="Current Stock" />
+                                    <TableColumn fx:id="prodRestock" prefWidth="116.0" text="Restock Amount" />
+                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="staffTab" text="Staff">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="staffTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <columns>
+                                    <TableColumn fx:id="staffID" editable="false" prefWidth="86.0" text="ID" />
+                                    <TableColumn fx:id="staffPass" editable="false" prefWidth="152.0" text="Password" />
+                                    <TableColumn fx:id="staffPerm" prefWidth="217.0" text="Permissions" />
+                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+      </VBox>
+      <HBox>
+         <children>
+            <Button fx:id="previous" mnemonicParsing="false" onAction="#setPrevious" text="Return">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="add" layoutX="758.0" layoutY="15.0" mnemonicParsing="false" onAction="#setAdd" text="Add">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="remove" layoutX="15.0" layoutY="15.0" mnemonicParsing="false" onAction="#setRemove" text="Remove">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button fx:id="exit" mnemonicParsing="false" onAction="#setExit" text="Exit Program">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="5.0" top="5.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>
