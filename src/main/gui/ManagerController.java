@@ -54,6 +54,7 @@ public class ManagerController implements Initializable
     @FXML Button admin;
     @FXML TextField startDate;
     @FXML TextField endDate;
+    @FXML Label salesRev;
 
     private ObservableList<ProductType> prodData;
     private ObservableList<Sale> saleData;
@@ -117,7 +118,7 @@ public class ManagerController implements Initializable
         stage.getScene().setRoot(adminRoot);
     }
 
-    @FXML private void setSearch()
+    @FXML private void setSearch() throws ParseException
     {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -139,6 +140,8 @@ public class ManagerController implements Initializable
                 return false;
             }
         });
+
+        salesRev.setText(String.valueOf(ProductReport.getSaleForDates(startDate.getText(), endDate.getText())));
     }
 
     @FXML private void setDiscAdd() throws Exception
@@ -152,5 +155,18 @@ public class ManagerController implements Initializable
         Scene discAdd = new Scene(discAddRoot);
         stage.setScene(discAdd);
         stage.show();
+    }
+
+    @FXML private void setSupplyGen() throws Exception
+    {
+
+        Alert alert;
+        if(ProductReport.generateSupplyReport())
+            alert = new Alert(Alert.AlertType.INFORMATION, "Supply Report Generated successfully!");
+        else
+            alert = new Alert(Alert.AlertType.INFORMATION, "Supply Report Failed to Generate!");
+        alert.setTitle("Confirmation");
+        alert.setHeaderText(null);
+        alert.showAndWait();
     }
 }

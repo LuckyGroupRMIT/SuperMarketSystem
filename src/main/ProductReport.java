@@ -12,7 +12,7 @@ import java.util.*;
 public class ProductReport
 {
 
-    public static void generateSupplyReport()  throws Exception
+    public static boolean generateSupplyReport()  throws Exception
     {
         String text = getSupplyText();
         String fileName = "supplyreport";
@@ -43,7 +43,7 @@ public class ProductReport
 
         g.dispose();
 
-        ImageIO.write(image, "png", newFile);
+        return ImageIO.write(image, "png", newFile);
     }
 
     private static String getSupplyText()
