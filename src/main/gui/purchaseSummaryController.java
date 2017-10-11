@@ -44,7 +44,7 @@ public class purchaseSummaryController implements Initializable
         ObservableList<Purchase> purchases = FXCollections.observableArrayList(cart.getPurchases());
 
         cartQuant.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getAmount()));
-        cartName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getProdName()));
+        cartName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
         cartPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getProduct().getBasePrice(1)));
         cartTotal.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getUndiscountedPrice()));
 
@@ -61,7 +61,7 @@ public class purchaseSummaryController implements Initializable
     private void setConfirm() throws ParseException
     {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Database.addObject(dateFormat.format(cart.getCurrentDate()), cart);
+        Database.addObject(dateFormat.format(cart.getDate()), cart);
         Stage stage = (Stage)cartTable.getScene().getWindow();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Thank you for shopping with us!");

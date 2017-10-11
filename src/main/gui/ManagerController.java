@@ -67,13 +67,13 @@ public class ManagerController implements Initializable
     {
         getTableData();
 
-        prodID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProdID()));
-        prodName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProdName()));
-        prodSupp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProdSupp()));
+        prodID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductID()));
+        prodName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        prodSupp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSupplier()));
         prodPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBasePrice( 1)));
         prodRev.setCellValueFactory(cellData -> new SimpleObjectProperty<>(ProductReport.getProductRevenue(cellData.getValue())));
 
-        salesDate.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCurrentDate()));
+        salesDate.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDate()));
         salesSub.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTotal()));
         salesTot.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTotal()));
 
@@ -132,7 +132,7 @@ public class ManagerController implements Initializable
                 Date firstDate = df.parse(startDate.getText());
                 Date secondDate = df.parse(endDate.getText());
 
-                return sale.getCurrentDate().after(firstDate) && sale.getCurrentDate().before(secondDate);
+                return sale.getDate().after(firstDate) && sale.getDate().before(secondDate);
 
             } catch (ParseException parse)
             {

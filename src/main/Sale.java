@@ -1,7 +1,5 @@
 package main;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,7 +10,8 @@ public class Sale implements Serializable{
     private static final long serialVersionUID = 1113799434508676095L;
 	private ArrayList<Purchase> purchases;
 	private ArrayList<Discount> discounts;
-	private Date currentDate;
+	private Date date;
+	private CustomerAccount customer;
 	
 	public ArrayList<Purchase> getPurchases() {
 		return purchases;
@@ -26,7 +25,7 @@ public class Sale implements Serializable{
 	public Sale() {
 		this.purchases = new ArrayList<Purchase>();
 		this.discounts = new ArrayList<Discount>();
-		currentDate = new Date();
+		date = new Date();
 	}
 	
 	public void recalculateDiscounts() {
@@ -77,7 +76,7 @@ public class Sale implements Serializable{
 		this.recalculateDiscounts();
 	}
 
-    public Date getCurrentDate() {
-        return currentDate;
+    public Date getDate() {
+        return date;
     }
 }

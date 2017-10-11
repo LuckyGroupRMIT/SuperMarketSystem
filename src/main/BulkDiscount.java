@@ -6,12 +6,12 @@ public class BulkDiscount implements Discount, Serializable {
 	PricingMethod pricingMethod;
 	String name;
 	int amount;
-	double percentage;
+	double percentageOff;
 
 	public BulkDiscount(String name, int amount, double percentageOff) {
 		this.name = name;
 		this.amount = amount;
-		this.percentage = percentageOff;
+		this.percentageOff = percentageOff;
 	}
 
     public String getName() {
@@ -23,7 +23,7 @@ public class BulkDiscount implements Discount, Serializable {
     }
 
     public double getPercentage() {
-        return percentage;
+        return percentageOff;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class BulkDiscount implements Discount, Serializable {
 		if (purchase.getPricingMethod() == this.pricingMethod) {
 			if (purchase.getAmount()>=this.amount) {
 				double oldDiscountedPrice = purchase.getDiscountedPrice();
-				double newDiscountedPrice = purchase.getUndiscountedPrice()*(1d-this.percentage);
+				double newDiscountedPrice = purchase.getUndiscountedPrice()*(1d-this.percentageOff);
 				if (newDiscountedPrice<purchase.getDiscountedPrice()) {
 					return oldDiscountedPrice-newDiscountedPrice;
 				}

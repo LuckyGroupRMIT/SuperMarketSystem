@@ -57,9 +57,9 @@ public class AdminController  implements Initializable
     {
         getTableData();
 
-        prodID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProdID()));
-        prodName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProdName()));
-        prodSupp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProdSupp()));
+        prodID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductID()));
+        prodName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        prodSupp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSupplier()));
         prodPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBasePrice(1)));
         prodStock.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCurrentStock()));
         prodRestock.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getRestockAmount()));
@@ -67,27 +67,27 @@ public class AdminController  implements Initializable
         prodName.setOnEditCommit(event -> {
             ProductType prod = event.getRowValue();
             prod.setName(event.getNewValue() != null ? event.getNewValue() : event.getOldValue());
-            Database.addObject(prod.getProdID(), prod);
+            Database.addObject(prod.getProductID(), prod);
         });
         prodSupp.setOnEditCommit(event -> {
             ProductType productType = event.getRowValue();
             productType.setSupplier(event.getNewValue() != null ? event.getNewValue() : event.getOldValue());
-            Database.addObject(productType.getProdID(), productType);
+            Database.addObject(productType.getProductID(), productType);
         });
         prodPrice.setOnEditCommit(event -> {
             ProductType productType = event.getRowValue();
             productType.setBasePrice(event.getNewValue() != null ? event.getNewValue() : event.getOldValue());
-            Database.addObject(productType.getProdID(), productType);
+            Database.addObject(productType.getProductID(), productType);
         });
         prodStock.setOnEditCommit(event -> {
             ProductType productType = event.getRowValue();
             productType.setCurrentStock(event.getNewValue() != null ? event.getNewValue() : event.getOldValue());
-            Database.addObject(productType.getProdID(), productType);
+            Database.addObject(productType.getProductID(), productType);
         });
         prodRestock.setOnEditCommit(event -> {
             ProductType productType = event.getRowValue();
             productType.setRestockAmount(event.getNewValue() != null ? event.getNewValue() : event.getOldValue());
-            Database.addObject(productType.getProdID(), productType);
+            Database.addObject(productType.getProductID(), productType);
         });
 
         staffID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getID()));
@@ -135,7 +135,7 @@ public class AdminController  implements Initializable
         else
         {
             ProductType prod = prodTable.getSelectionModel().getSelectedItem();
-            Database.removeObject(prod.getProdID(), prod.getClass());
+            Database.removeObject(prod.getProductID(), prod.getClass());
         }
     }
 

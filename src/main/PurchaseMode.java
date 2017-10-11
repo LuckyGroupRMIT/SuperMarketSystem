@@ -79,9 +79,9 @@ public class PurchaseMode {
 
                 System.out.printf("%d. %10s\t|\t%20s\t|\t%20s\t|\t$%.2f\n",
                         indexPos,
-                        product.getProdID(),
-                        product.getProdName(),
-                        product.getProdSupp(),
+                        product.getProductID(),
+                        product.getName(),
+                        product.getSupplier(),
                         product.getBasePrice(1));
                 indexPos++;
             } while (indexPos % itemNo != 0 && indexPos < products.size());
@@ -104,9 +104,9 @@ public class PurchaseMode {
                     ProductType product = products.get(choice);
 
 
-                    System.out.printf("Enter the amount of %s to add to cart, or enter empty line to cancel: ", product.getProdName());
+                    System.out.printf("Enter the amount of %s to add to cart, or enter empty line to cancel: ", product.getName());
                     int amount = Integer.parseInt(reader.nextLine());
-                    System.out.printf("\nAdding %d of %s, is this correct? (Y/N): ", amount, product.getProdName());
+                    System.out.printf("\nAdding %d of %s, is this correct? (Y/N): ", amount, product.getName());
                     inp = reader.nextLine();
                     if(inp.equalsIgnoreCase("Y"))
                     {
@@ -150,9 +150,9 @@ public class PurchaseMode {
                 ProductType product = purchases.getProduct();
 
                 System.out.printf("%s\t|\t%s\t|\t%s\t|\t$%.2f\n",
-                        product.getProdID(),
-                        product.getProdName(),
-                        product.getProdSupp(),
+                        product.getProductID(),
+                        product.getName(),
+                        product.getSupplier(),
                         product.getBasePrice( 1));
             }
             System.out.printf("\nTotal cost is: $%.2f\n\n", sale.getTotal());
@@ -226,6 +226,6 @@ public class PurchaseMode {
 
     private static void makeSale(Sale sale)
     {
-//        sale.getCurrentDate().toString();
+//        sale.getDate().toString();
     }
 }

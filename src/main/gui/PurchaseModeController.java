@@ -69,9 +69,9 @@ public class PurchaseModeController implements Initializable{
                 if(newValue == null || newValue.isEmpty())
                     return true;
                 String lowercase = newValue.toLowerCase();
-                if(productType.getProdID().toLowerCase().contains(lowercase))
+                if(productType.getProductID().toLowerCase().contains(lowercase))
                     return true;
-                else if(productType.getProdName().toLowerCase().contains(lowercase))
+                else if(productType.getName().toLowerCase().contains(lowercase))
                     return true;
                 return false;
             });
@@ -128,13 +128,13 @@ public class PurchaseModeController implements Initializable{
 
     private void setCells()
     {
-        prodID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProdID()));
-        prodName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProdName()));
-        prodSupp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProdSupp()));
+        prodID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductID()));
+        prodName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        prodSupp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSupplier()));
         prodPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBasePrice(1)));
 
         cartQuant.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getAmount()));
-        cartName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getProdName()));
+        cartName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
         cartPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getProduct().getBasePrice(1)));
         cartTotal.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getUndiscountedPrice()));
     }

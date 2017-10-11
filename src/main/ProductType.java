@@ -2,36 +2,35 @@ package main;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class ProductType implements Serializable{
     private static final long serialVersionUID = 1113799434508676095L;
 
 	private int currentStock;
 	private int restockAmount;
-	private String prodName;
-	private String prodSupp;
-	private String prodID;
-	private double prodPrice;
+	private String name;
+	private String supplier;
+	private String productID;
+	private double basePrice;
 	private ArrayList<Discount> discounts;
 	private PricingMethod pricingMethod;
 	
 	public ProductType(String productID,String name, String supplier,int restockAmount,PricingMethod method, double basePrice){
-		this.prodID = productID;
-		this.prodName = name;
-		this.prodSupp = supplier;
+		this.productID = productID;
+		this.name = name;
+		this.supplier = supplier;
 		this.pricingMethod = method;
-		this.prodPrice = basePrice;
+		this.basePrice = basePrice;
 		this.currentStock = 0;
 		this.restockAmount = restockAmount; 
 		this.discounts = new ArrayList<Discount>();
 	}
 
 	public Double getBasePrice(int amount) {
-		return this.prodPrice*amount;
+		return this.basePrice *amount;
 	}
 	public void setBasePrice(double price) {
-		this.prodPrice = price;
+		this.basePrice = price;
 	}
 
 	public int getCurrentStock() {
@@ -53,12 +52,12 @@ public class ProductType implements Serializable{
 		this.restockAmount = restock;
 	}
 
-	public String getProdSupp() {
-		return prodSupp;
+	public String getSupplier() {
+		return supplier;
 	}
 
     public void setSupplier(String supplier) {
-        this.prodSupp = supplier;
+        this.supplier = supplier;
     }
     public void addProductDiscount(Discount x) {
     	this.discounts.add(x);
@@ -74,15 +73,15 @@ public class ProductType implements Serializable{
 		return this.discounts;
 	}
 
-	public String getProdID() {
-		return prodID;
+	public String getProductID() {
+		return productID;
 	}
 
-	public String getProdName() {
-		return prodName;
+	public String getName() {
+		return name;
 	}
 
 	public void setName(String name) {
-		this.prodName = name;
+		this.name = name;
 	}
 }

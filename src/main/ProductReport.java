@@ -56,8 +56,8 @@ public class ProductReport
                 "\t---------------------------------------------------------\n");
         for(ProductType product : productList)
         {
-            String prodString = "\t" + product.getProdID()
-                    + "\t|\t" + product.getProdName()
+            String prodString = "\t" + product.getProductID()
+                    + "\t|\t" + product.getName()
                     + "\t|\t" + product.getCurrentStock()
                     + "\t|\t" + product.getRestockAmount() + "\n";
             text = text.concat(prodString);
@@ -93,11 +93,11 @@ public class ProductReport
         Date formStartDate = dateFormat.parse(startDate);
         Date formEndDate = dateFormat.parse(endDate);
 
-        sales.sort(Comparator.comparing(Sale::getCurrentDate));
+        sales.sort(Comparator.comparing(Sale::getDate));
 
         for(Sale sale: sales)
         {
-            if(sale.getCurrentDate().after(formStartDate) || sale.getCurrentDate().before(formEndDate))
+            if(sale.getDate().after(formStartDate) || sale.getDate().before(formEndDate))
                 dates.add(sale);
         }
 
@@ -110,14 +110,14 @@ public class ProductReport
 
         double totalRevenue = 0;
 
-        sales.sort(Comparator.comparing(Sale::getCurrentDate));
+        sales.sort(Comparator.comparing(Sale::getDate));
 
         for (Sale sale:sales)
         {
             ArrayList<Purchase> purchases = sale.getPurchases();
             for (Purchase purchase: purchases)
             {
-                if(purchase.getProduct().getProdName().equalsIgnoreCase(product.getProdName()))
+                if(purchase.getProduct().getName().equalsIgnoreCase(product.getName()))
                     totalRevenue += purchase.getUndiscountedPrice();
             }
         }
