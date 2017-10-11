@@ -20,6 +20,10 @@
    <children>
       <HBox>
          <children>
+            <Button mnemonicParsing="false" onAction="#setRefresh" prefHeight="32.0" prefWidth="72.0" text="Refresh">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin></Button>
             <TextField fx:id="prodSearch" prefHeight="32.0" promptText="Enter Item Name or ID Here" HBox.hgrow="SOMETIMES" />
             <Button fx:id="exit" mnemonicParsing="false" onAction="#setExit" prefHeight="32.0" text="Exit Program" visible="false">
                <HBox.margin>
@@ -110,11 +114,11 @@
          <children>
             <Pane>
                <children>
-                  <Spinner fx:id="addCounter" min="0" max="100" prefHeight="32.0" />
+                  <Spinner fx:id="addCounter" max="100" min="0" prefHeight="32.0" />
                </children></Pane>
             <Button fx:id="btnAddItem" mnemonicParsing="false" onAction="#handleAddItemBtn" prefHeight="32.0" prefWidth="148.0" text="Add Item" />
-            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="148.0" text="Remove Item" visible="false" />
-            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="148.0" text="Clear Sale" visible="false" />
+            <Button fx:id="remove" mnemonicParsing="false" onAction="#setRemove" prefHeight="32.0" prefWidth="148.0" text="Remove Item" visible="false" />
+            <Button fx:id="clear" mnemonicParsing="false" onAction="#setClear" prefHeight="32.0" prefWidth="148.0" text="Clear Sale" visible="false" />
             <Pane HBox.hgrow="ALWAYS" />
             <Button fx:id="btnCartFinish" mnemonicParsing="false" onAction="#setPurchase" prefHeight="32.0" prefWidth="148.0" text="Complete Purchase" />
          </children>

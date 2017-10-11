@@ -50,15 +50,16 @@ public class AdminController  implements Initializable
     private ObservableList<StaffAccount> staffData;
 
     private static boolean staff;
+    private static boolean product;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
         getTableData();
 
-        prodID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductID()));
-        prodName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        prodSupp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSupplier()));
+        prodID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProdID()));
+        prodName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProdName()));
+        prodSupp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProdSupp()));
         prodPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBasePrice(1)));
         prodStock.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCurrentStock()));
         prodRestock.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getRestockAmount()));
@@ -66,27 +67,27 @@ public class AdminController  implements Initializable
         prodName.setOnEditCommit(event -> {
             ProductType prod = event.getRowValue();
             prod.setName(event.getNewValue() != null ? event.getNewValue() : event.getOldValue());
-            Database.addObject(prod.getProductID(), prod);
+            Database.addObject(prod.getProdID(), prod);
         });
         prodSupp.setOnEditCommit(event -> {
             ProductType productType = event.getRowValue();
             productType.setSupplier(event.getNewValue() != null ? event.getNewValue() : event.getOldValue());
-            Database.addObject(productType.getProductID(), productType);
+            Database.addObject(productType.getProdID(), productType);
         });
         prodPrice.setOnEditCommit(event -> {
             ProductType productType = event.getRowValue();
             productType.setBasePrice(event.getNewValue() != null ? event.getNewValue() : event.getOldValue());
-            Database.addObject(productType.getProductID(), productType);
+            Database.addObject(productType.getProdID(), productType);
         });
         prodStock.setOnEditCommit(event -> {
             ProductType productType = event.getRowValue();
             productType.setCurrentStock(event.getNewValue() != null ? event.getNewValue() : event.getOldValue());
-            Database.addObject(productType.getProductID(), productType);
+            Database.addObject(productType.getProdID(), productType);
         });
         prodRestock.setOnEditCommit(event -> {
             ProductType productType = event.getRowValue();
             productType.setRestockAmount(event.getNewValue() != null ? event.getNewValue() : event.getOldValue());
-            Database.addObject(productType.getProductID(), productType);
+            Database.addObject(productType.getProdID(), productType);
         });
 
         staffID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getID()));
@@ -134,7 +135,7 @@ public class AdminController  implements Initializable
         else
         {
             ProductType prod = prodTable.getSelectionModel().getSelectedItem();
-            Database.removeObject(prod.getProductID(), prod.getClass());
+            Database.removeObject(prod.getProdID(), prod.getClass());
         }
     }
 
@@ -155,7 +156,7 @@ public class AdminController  implements Initializable
 
     private void runProdAdd() throws IOException
     {
-        staff = false;
+        product = true;
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.UNIFIED);
@@ -165,7 +166,10 @@ public class AdminController  implements Initializable
         Scene prodAdd = new Scene(prodAddRoot);
         stage.setScene(prodAdd);
         stage.show();
+        product = false;
     }
 
     public static boolean getStaff(){return staff;}
+
+    public static boolean getProduct(){return product;}
 }

@@ -19,7 +19,6 @@ public class LoginController
     @FXML Label invalid;
 
     private static CustomerAccount account;
-    private boolean validCustomer = false;
 
     @FXML TextField accNo;
 
@@ -53,6 +52,7 @@ public class LoginController
                 switch (Login.checkPermissions(userID.getText()))
                 {
                     case SALES:
+                        PurchaseModeController.setSalesmode(true);
                         break;
                     case MANAGER:
                         Stage stage = (Stage)login.getScene().getWindow();

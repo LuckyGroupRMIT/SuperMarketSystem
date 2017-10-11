@@ -47,12 +47,12 @@ public class Login
 
 	public static boolean checkStaffDetails(String userID, String password)
     {
-        StaffAccount account = (StaffAccount) Database.getByID(userID, StaffAccount.class);
-        if(account != null)
-        {
-            if (account.getPassword().equals(password))
+        ArrayList<StaffAccount> staffAccounts = Database.listAllStaff();
+
+        for (StaffAccount staffAccount: staffAccounts)
+            if (staffAccount.getID().equals(userID) && staffAccount.getPassword().equals(password))
                 return true;
-        }
+
         return false;
 	}
 
@@ -69,7 +69,7 @@ public class Login
 	
 	public static Permission checkPermissions(String userID)
     {
-        StaffAccount account = (StaffAccount) Database.getByID(userID, StaffAccount.class);
+        StaffAccount account = (StaffAccount) Database.getByID(userID, UserAccount.class);
         if(account != null)
             return account.getPermissions();
         else

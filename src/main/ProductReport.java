@@ -56,8 +56,8 @@ public class ProductReport
                 "\t---------------------------------------------------------\n");
         for(ProductType product : productList)
         {
-            String prodString = "\t" + product.getProductID()
-                    + "\t|\t" + product.getName()
+            String prodString = "\t" + product.getProdID()
+                    + "\t|\t" + product.getProdName()
                     + "\t|\t" + product.getCurrentStock()
                     + "\t|\t" + product.getRestockAmount() + "\n";
             text = text.concat(prodString);
@@ -117,7 +117,7 @@ public class ProductReport
             ArrayList<Purchase> purchases = sale.getPurchases();
             for (Purchase purchase: purchases)
             {
-                if(purchase.getProduct().getName().equalsIgnoreCase(product.getName()))
+                if(purchase.getProduct().getProdName().equalsIgnoreCase(product.getProdName()))
                     totalRevenue += purchase.getUndiscountedPrice();
             }
         }

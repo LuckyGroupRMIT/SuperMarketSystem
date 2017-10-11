@@ -42,24 +42,24 @@ public class PurchaseModeController implements Initializable{
     @FXML private Label gCost;
     @FXML private Label tCost;
 
+    @FXML private Button exit;
+    @FXML private Button remove;
+    @FXML private Button clear;
+
     private ObservableList<ProductType> data;
     private ObservableList<Purchase> cart;
-    private static Sale sale;
+    private SortedList<ProductType> sortedList;
+    private static Sale sale = new Sale();
+    private static boolean salesmode = false;
+
+    private URL loc;
+    private ResourceBundle res;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        sale = new Sale();
+
         getTableData();
-
-        prodID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductID()));
-        prodName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        prodSupp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSupplier()));
-        prodPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBasePrice(1)));
-
-        cartQuant.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getAmount()));
-        cartName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
-        cartPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getProduct().getBasePrice(1)));
-        cartTotal.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getUndiscountedPrice()));
+        setCells();
 
 //        Filter code altered from: http://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
         FilteredList<ProductType> filteredList = new FilteredList<>(data, cell-> true);
@@ -69,15 +69,15 @@ public class PurchaseModeController implements Initializable{
                 if(newValue == null || newValue.isEmpty())
                     return true;
                 String lowercase = newValue.toLowerCase();
-                if(productType.getProductID().toLowerCase().contains(lowercase))
+                if(productType.getProdID().toLowerCase().contains(lowercase))
                     return true;
-                else if(productType.getName().toLowerCase().contains(lowercase))
+                else if(productType.getProdName().toLowerCase().contains(lowercase))
                     return true;
                 return false;
             });
         });
 
-        SortedList<ProductType> sortedList = new SortedList<>(filteredList);
+        sortedList = new SortedList<>(filteredList);
         sortedList.comparatorProperty().bind(prodTable.comparatorProperty());
 
         prodTable.setItems(sortedList);
@@ -88,6 +88,8 @@ public class PurchaseModeController implements Initializable{
     {
         data = FXCollections.observableArrayList(Database.listAllProducts());
         cart = FXCollections.observableArrayList(sale.getPurchases());
+        prodTable.refresh();
+        cartTable.refresh();
     }
 
     @FXML private void handleStaffBtn(Event event) throws Exception
@@ -101,6 +103,7 @@ public class PurchaseModeController implements Initializable{
         stage.setTitle("Staff Login");
         stage.setScene(popup);
         stage.show();
+        changeMode();
     }
 
     @FXML private void handleAddItemBtn() throws Exception
@@ -123,6 +126,19 @@ public class PurchaseModeController implements Initializable{
         Platform.exit();
     }
 
+    private void setCells()
+    {
+        prodID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProdID()));
+        prodName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProdName()));
+        prodSupp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProdSupp()));
+        prodPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBasePrice(1)));
+
+        cartQuant.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getAmount()));
+        cartName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getProdName()));
+        cartPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getProduct().getBasePrice(1)));
+        cartTotal.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getUndiscountedPrice()));
+    }
+
     @FXML private void setPurchase() throws IOException
     {
         Parent loginRoot = FXMLLoader.load(getClass().getResource("customerLoginPopup.fxml"));
@@ -138,4 +154,45 @@ public class PurchaseModeController implements Initializable{
     public static Sale getCart() {
         return sale;
     }
+
+    @FXML public void setRefresh()
+    {
+        if(purchaseSummaryController.checkConfirm())
+            sale = new Sale();
+        initialize(loc, res);
+    }
+
+    public static void setSalesmode(boolean val)
+    {
+        salesmode = val;
+    }
+
+    private void changeMode()
+    {
+        if(salesmode)
+        {
+            exit.setVisible(true);
+            remove.setVisible(true);
+            clear.setVisible(true);
+        }
+        else
+        {
+            exit.setVisible(false);
+            remove.setVisible(false);
+            clear.setVisible(false);
+        }
+    }
+
+    @FXML public void setClear()
+    {
+        sale = new Sale();
+        setRefresh();
+    }
+
+    @FXML public void setRemove()
+    {
+        sale.cancelOrder(prodTable.getSelectionModel().getSelectedIndex()+1);
+        setRefresh();
+    }
+
 }

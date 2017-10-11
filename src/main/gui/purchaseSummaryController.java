@@ -34,6 +34,7 @@ public class purchaseSummaryController implements Initializable
 
     private Sale cart;
     private CustomerAccount account;
+    private static boolean confirmed = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -43,7 +44,7 @@ public class purchaseSummaryController implements Initializable
         ObservableList<Purchase> purchases = FXCollections.observableArrayList(cart.getPurchases());
 
         cartQuant.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getAmount()));
-        cartName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
+        cartName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getProdName()));
         cartPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getProduct().getBasePrice(1)));
         cartTotal.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getUndiscountedPrice()));
 
@@ -67,8 +68,8 @@ public class purchaseSummaryController implements Initializable
         alert.setTitle("Confirmation");
         alert.setHeaderText(null);
         alert.showAndWait();
-
         stage.close();
+        confirmed = true;
     }
 
     @FXML
@@ -76,5 +77,16 @@ public class purchaseSummaryController implements Initializable
     {
         Stage stage = (Stage)cartTable.getScene().getWindow();
         stage.close();
+    }
+
+    public static boolean checkConfirm()
+    {
+        if(confirmed)
+        {
+            confirmed = false;
+            return true;
+        }
+
+        return false;
     }
 }

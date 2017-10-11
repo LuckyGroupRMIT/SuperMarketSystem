@@ -7,24 +7,24 @@ public class Database
 {
     private static HashMap<String, ProductType> ProductHash = new HashMap<>();
     private static HashMap<String, UserAccount> AccountHash = new HashMap<>();
-    private static HashMap<String, Discount> DiscountHash = new HashMap<>();
+    private static HashMap<String, BulkDiscount> DiscountHash = new HashMap<>();
     private static HashMap<String, Sale> SaleHash = new HashMap<>();
 
     public static void saveAllMaps() throws IOException
     {
         ObjectOutputStream prodOut = new ObjectOutputStream(new FileOutputStream("product.dat"));
         ObjectOutputStream accOut = new ObjectOutputStream(new FileOutputStream("account.dat"));
-//        ObjectOutputStream discOut = new ObjectOutputStream(new FileOutputStream("discount.dat"));
+        ObjectOutputStream discOut = new ObjectOutputStream(new FileOutputStream("discount.dat"));
         ObjectOutputStream saleOut = new ObjectOutputStream(new FileOutputStream("sales.dat"));
 
         prodOut.writeObject(ProductHash);
         accOut.writeObject(AccountHash);
-//        discOut.writeObject(DiscountHash);
+        discOut.writeObject(DiscountHash);
         saleOut.writeObject(SaleHash);
 
         prodOut.close();
         accOut.close();
-//        discOut.close();
+        discOut.close();
         saleOut.close();
 
     }
@@ -61,7 +61,7 @@ public class Database
             try {
                 Object discRead = discIn.readObject();
             if(discRead instanceof HashMap)
-                DiscountHash = (HashMap<String, Discount>) discRead;
+                DiscountHash = (HashMap<String, BulkDiscount>) discRead;
             }catch (ClassNotFoundException cls){
                 return false;
             }
@@ -94,8 +94,8 @@ public class Database
             return true;
         }
 
-        else if(value instanceof Discount) {
-            DiscountHash.put(key, ((Discount) value));
+        else if(value instanceof BulkDiscount) {
+            DiscountHash.put(key, ((BulkDiscount) value));
             return true;
         }
 
@@ -107,17 +107,17 @@ public class Database
         return false;
     }
 
-    public static Object getByID(String key, Class<?> type)
+    public static Object getByID(String key, Class type)
     {
         Object object = null;
 
-        if(type == ProductType.class)
+        if(type.equals(ProductType.class))
             object = ProductHash.get(key);
-        else if(type == UserAccount.class)
+        else if(type.equals(UserAccount.class))
             object = AccountHash.get(key);
-        else if(type == Discount.class)
+        else if(type.equals(Discount.class))
             object = DiscountHash.get(key);
-        else if(type == Sale.class)
+        else if(type.equals(Sale.class))
             object = SaleHash.get(key);
 
         return object;
@@ -153,6 +153,12 @@ public class Database
         return new ArrayList<>(values);
     }
 
+    public static ArrayList<BulkDiscount> listAllDiscounts()
+    {
+        Collection<BulkDiscount> values = DiscountHash.values();
+        return new ArrayList<>(values);
+    }
+
     public static ArrayList<CustomerAccount> listAllCustomers()
     {
         ArrayList<UserAccount> userAccounts = listAllAccounts();
@@ -174,12 +180,6 @@ public class Database
                 staffAccounts.add((StaffAccount) userAccount);
 
         return staffAccounts;
-    }
-
-    public static ArrayList<Sale> listAllSales()
-    {
-        Collection<Sale> values = SaleHash.values();
-        return new ArrayList<>(values);
     }
 
     public static ArrayList<Sale> listAllSales()
