@@ -44,7 +44,7 @@ public class Login
         return Permission.EMPTY;
     }
 
-	private static boolean checkDetails(String userID, String password)
+	public static boolean checkDetails(String userID, String password)
     {
         StaffAccount account = (StaffAccount) Database.getByID(userID, StaffAccount.class);
         if(account != null)
@@ -55,7 +55,7 @@ public class Login
         return false;
 	}
 	
-	private static Permission checkPermissions(String userID)
+	public static Permission checkPermissions(String userID)
     {
         StaffAccount account = (StaffAccount) Database.getByID(userID, StaffAccount.class);
         if(account != null)

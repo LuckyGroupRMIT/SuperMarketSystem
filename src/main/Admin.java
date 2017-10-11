@@ -76,8 +76,15 @@ public class Admin
             if(tempSupplier.isEmpty())
                 break;
 
+            System.out.print("Please enter the restock amount for the new product, or enter empty line to cancel: ");
+            String tempRestock = reader.nextLine();
+            if(tempRestock.isEmpty())
+                break;
+
             newProduct = new ProductType(tempId, tempName, tempSupplier);
             newProduct.setBasePrice(PricingMethod.QUANTITY, Double.parseDouble(tempPrice));
+            newProduct.setRestock(Integer.parseInt(tempRestock));
+            newProduct.setCurrentStock(newProduct.getRestock());
             System.out.println("New product is " + newProduct.getProductID() + " - " + newProduct.getName() + " - "
              + newProduct.getSupplier() + " $" + newProduct.getBasePrice(PricingMethod.QUANTITY, 1));
             System.out.print("Is this correct? (Y/N): ");
@@ -162,11 +169,49 @@ public class Admin
 
     private static void displayRemoveProductMenu()
     {
+        boolean exitLoop = false;
+        Scanner reader = new Scanner(System.in);
 
+        while (!exitLoop) {
+            System.out.print("Please enter id of product to remove, or enter empty line to cancel: ");
+            String tempId = reader.nextLine();
+            if (tempId.isEmpty())
+                break;
+            System.out.print("Are you sure you want to remove product " + tempId + "? (Y/N): ");
+            String inp = reader.nextLine();
+            if(inp.equalsIgnoreCase("Y"))
+            {
+                if(Database.removeObject(tempId, ProductType.class)) {
+                    System.out.println("Product " + tempId + " removed successfully!\n");
+                    exitLoop = true;
+                }
+                else
+                    System.out.println("Error: failed to create account");
+            }
+        }
     }
 
     private static void displayRemoveStaffMenu()
     {
+        boolean exitLoop = false;
+        Scanner reader = new Scanner(System.in);
 
+        while (!exitLoop) {
+            System.out.print("Please enter id of account to remove, or enter empty line to cancel: ");
+            String tempId = reader.nextLine();
+            if (tempId.isEmpty())
+                break;
+            System.out.print("Are you sure you want to remove staff account " + tempId + "? (Y/N): ");
+            String inp = reader.nextLine();
+            if(inp.equalsIgnoreCase("Y"))
+            {
+                if(Database.removeObject(tempId, StaffAccount.class)) {
+                    System.out.println("Account " + tempId + " removed successfully!\n");
+                    exitLoop = true;
+                }
+                else
+                    System.out.println("Error: failed to create account");
+            }
+        }
     }
 }

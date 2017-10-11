@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Manager
 {
-    public static void displayManagerMenu()
+    public static boolean displayManagerMenu()
     {
         boolean exitProgram = false;
         Scanner reader = new Scanner(System.in);
@@ -19,6 +19,7 @@ public class Manager
             System.out.println("4. View products by revenue");
             System.out.println("5. View all staff members");
             System.out.println("6. Return to initial menu");
+            System.out.println("7. Exit Program");
             System.out.println("0. Admin Options");
             System.out.print("\n\nEnter a number to select option: ");
 
@@ -33,10 +34,14 @@ public class Manager
                     displaySalesReportMenu();
                     break;
                 case 3:
-                    ProductReport.generateSupplyReport();
+                    try {
+                        ProductReport.generateSupplyReport();
+                    } catch (Exception e) {
+                        System.out.println("Failed!");
+                    }
                     break;
                 case 4:
-                    ProductReport.getBestSellers();
+//                    ProductReport.getBestSellers();
                     break;
                 case 5:
                     displayAllStaffMenu();
@@ -44,6 +49,8 @@ public class Manager
                 case 6:
                     exitProgram = true;
                     break;
+                case 7:
+                    return true;
                 case 0:
                     Admin.displayAdminOptions();
                     break;
@@ -52,6 +59,8 @@ public class Manager
                     break;
             }
         }
+
+        return false;
     }
 
     private static void displayProductMenu()
@@ -119,7 +128,7 @@ public class Manager
                 continue;
             }
 
-            ProductReport.generateSalesReport(startDate, endDate);
+//            ProductReport.generateSalesReport(startDate, endDate);
             exitloop = true;
         }
     }
