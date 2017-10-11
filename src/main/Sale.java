@@ -55,20 +55,20 @@ public class Sale implements Serializable{
 		}
 		return sum;
 	}
-<<<<<<< HEAD
+
 	public void setCustomer(CustomerAccount c) {
 		this.customer = c;
 	}
-	public void getCustomer(CustomerAccount c) {
+	public CustomerAccount getCustomer() {
 		return this.customer;
 	}
-	public setDate(Date date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
-	public getDate(Date date) {
-		return this.date;
-	}
-=======
+
+    public Date getDate() {
+        return date;
+    }
 
 	public double getUndiscountedTotal()
     {
@@ -79,7 +79,7 @@ public class Sale implements Serializable{
         }
         return sum;
     }
->>>>>>> ImplementGUI
+
 	
 	public void addPurchase(Purchase purchase) {
 		this.purchases.add(purchase);
@@ -91,7 +91,5 @@ public class Sale implements Serializable{
 		this.recalculateDiscounts();
 	}
 
-    public Date getDate() {
-        return date;
-    }
+
 }

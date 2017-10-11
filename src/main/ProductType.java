@@ -4,12 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ProductType implements Serializable{
-<<<<<<< HEAD
 	private String name;
-=======
     private static final long serialVersionUID = 1113799434508676095L;
 
->>>>>>> ImplementGUI
 	private int currentStock;
 	private int restockAmount;
 	private String supplier;
