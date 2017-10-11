@@ -1,16 +1,18 @@
 package main.gui;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 import main.*;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -36,6 +38,7 @@ public class ManagerController implements Initializable
     @FXML Button supplyGen;
     @FXML Button exit;
     @FXML Button search;
+    @FXML Button admin;
     @FXML TextField startDate;
     @FXML TextField endDate;
 
@@ -51,7 +54,7 @@ public class ManagerController implements Initializable
         prodName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         prodSupp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSupplier()));
         prodPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBasePrice(PricingMethod.QUANTITY, 1)));
-        prodPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(ProductReport.getProductRevenue(cellData.getValue())));
+        prodRev.setCellValueFactory(cellData -> new SimpleObjectProperty<>(ProductReport.getProductRevenue(cellData.getValue())));
 
         salesDate.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCurrentDate()));
         salesSub.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTotal()));
@@ -65,5 +68,26 @@ public class ManagerController implements Initializable
     {
         prodData = FXCollections.observableArrayList(Database.listAllProducts());
         saleData = FXCollections.observableArrayList(Database.listAllSales());
+    }
+
+    @FXML private void setSignout() throws Exception
+    {
+        Stage stage = (Stage)signout.getScene().getWindow();
+        Parent purchaseRoot = FXMLLoader.load(getClass().getResource("purchasemode.fxml"));
+        stage.setTitle("Self-Serve Shopping");
+        stage.getScene().setRoot(purchaseRoot);
+    }
+
+    @FXML private void setExit()
+    {
+        Platform.exit();
+    }
+
+    @FXML private void setAdmin() throws Exception
+    {
+        Stage stage = (Stage)signout.getScene().getWindow();
+        Parent adminRoot = FXMLLoader.load(getClass().getResource("adminmenu.fxml"));
+        stage.setTitle("Admin Menu");
+        stage.getScene().setRoot(adminRoot);
     }
 }

@@ -52,13 +52,13 @@
                                              <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                              </HBox.margin></Label>
-                                          <TextField minHeight="32.0" promptText="DD/MM/YYYY" />
+                                          <TextField fx:id="startDate" minHeight="32.0" promptText="DD/MM/YYYY" />
                                           <Label minHeight="32.0" text="End Date:">
                                              <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                              </HBox.margin></Label>
-                                          <TextField minHeight="32.0" promptText="DD/MM/YYYY" />
-                                          <Button minHeight="32.0" mnemonicParsing="false" text="Search">
+                                          <TextField fx:id="endDate" minHeight="32.0" promptText="DD/MM/YYYY" />
+                                          <Button fx:id="search" minHeight="32.0" mnemonicParsing="false" text="Search">
                                              <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                              </HBox.margin></Button>
@@ -101,17 +101,18 @@
       </VBox>
       <HBox>
          <children>
-          <Button mnemonicParsing="false" text="Sign Out">
+          <Button fx:id="signout" mnemonicParsing="false" onAction="#setSignout" text="Sign Out">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" text="Generate Supply Report">
+            <Button fx:id="supplyGen" mnemonicParsing="false" text="Generate Supply Report">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>
             </Button>
             <Pane HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" text="Exit Program">
+            <Button fx:id="admin" layoutX="88.0" layoutY="15.0" mnemonicParsing="false" onAction="#setAdmin" text="Admin" />
+            <Button fx:id="exit" mnemonicParsing="false" onAction="#setExit" text="Exit Program">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>

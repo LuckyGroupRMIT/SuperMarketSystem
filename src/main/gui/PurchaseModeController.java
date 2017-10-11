@@ -1,5 +1,6 @@
 package main.gui;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -16,7 +17,6 @@ import javafx.scene.control.*;
 
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import main.*;
 
 import java.net.URL;
@@ -36,6 +36,7 @@ public class PurchaseModeController implements Initializable{
     @FXML private TableColumn<Purchase, Double> cartTotal;
 
     @FXML private TextField prodSearch;
+    @FXML private ChoiceBox<PricingMethod> pricingMethod;
     @FXML private Spinner addCounter;
     @FXML private Label gCost;
     @FXML private Label tCost;
@@ -80,6 +81,8 @@ public class PurchaseModeController implements Initializable{
 
         prodTable.setItems(sortedList);
         cartTable.setItems(cart);
+
+//        pricingMethod.setItems(ObservableList<PricingMethod>());
     }
 
     private void getTableData()
@@ -112,5 +115,10 @@ public class PurchaseModeController implements Initializable{
 
         gCost.setText("$"+String.valueOf(sale.getTotal()));
         tCost.setText("$"+String.valueOf(sale.getTotal()));
+    }
+
+    @FXML private void setExit()
+    {
+        Platform.exit();
     }
 }

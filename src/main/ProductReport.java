@@ -66,30 +66,42 @@ public class ProductReport
         return text;
     }
 
-    public static double getTotalRevenue(String startDate, String endDate) throws ParseException
+    public static double getTotalRevenue(String startDate, String endDate)
+    {
+        double totalRevenue = 0;
+
+        try {
+            ArrayList<Sale> sales = getSaleForDates(startDate, endDate);
+
+            for (Sale sale:sales)
+            {
+                totalRevenue += sale.getTotal();
+            }
+        }catch (ParseException p) {
+            p.printStackTrace();
+        }
+
+        return totalRevenue;
+    }
+
+    public static ArrayList<Sale> getSaleForDates(String startDate, String endDate) throws ParseException
     {
         ArrayList<Sale> sales = Database.listAllSales();
+        ArrayList<Sale> dates = new ArrayList<>();
 
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date formStartDate = dateFormat.parse(startDate);
         Date formEndDate = dateFormat.parse(endDate);
-        HashMap<String, Integer> productSales = new HashMap<>();
-        HashMap<String, Double> productRevenue = new HashMap<>();
-
-        double totalRevenue = 0;
 
         sales.sort(Comparator.comparing(Sale::getCurrentDate));
 
-        for (Sale sale:sales)
+        for(Sale sale: sales)
         {
-            if(sale.getCurrentDate().after(formStartDate) && sale.getCurrentDate().before(formEndDate))
-            {
-                ArrayList<Purchase> purchases = sale.getPurchases();
-                totalRevenue += sale.getTotal();
-            }
+            if(sale.getCurrentDate().after(formStartDate) || sale.getCurrentDate().before(formEndDate))
+                dates.add(sale);
         }
 
-        return totalRevenue;
+        return dates;
     }
 
     public static double getProductRevenue(ProductType product)
