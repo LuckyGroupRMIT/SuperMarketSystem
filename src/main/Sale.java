@@ -45,18 +45,18 @@ public class Sale {
 	public double getTotal() {
 		double sum = 0;
 		for(int i = 0; i<this.purchases.size(); i++) {
-			sum += this.purchases.get(i).getUndiscountedPrice();
+			sum += this.purchases.get(i).getDiscountedPrice();
 		}
 		return sum;
 	}
 	
 	public void addPurchase(Purchase purchase) {
 		this.purchases.add(purchase);
-//		this.recalculateDiscounts();
+		this.recalculateDiscounts();
 	}
 
 	public void cancelOrder(int i) {
 		this.purchases.remove(i-1);
-//		this.recalculateDiscounts();
+		this.recalculateDiscounts();
 	}
 }

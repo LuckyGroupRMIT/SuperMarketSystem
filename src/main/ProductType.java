@@ -22,9 +22,10 @@ public class ProductType implements Serializable{
 		this.basePrice = basePrice;
 		this.currentStock = 0;
 		this.restockAmount = restockAmount; 
+		this.discounts = new ArrayList<Discount>();
 	}
-	public Double getBasePrice(PricingMethod x, int amount) {
-		return this.basePrice;
+	public Double getBasePrice(int amount) {
+		return this.basePrice*amount;
 	}
 	public void setBasePrice(double price) {
 		this.basePrice = price;

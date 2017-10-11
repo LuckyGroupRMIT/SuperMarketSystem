@@ -7,10 +7,10 @@ public class Purchase {
 	private double basePrice;
 	private double discountedPrice;
 	private PricingMethod pricingMethod;
-	public Purchase(ProductType product, PricingMethod pricingMethod, int amount ) {
+	public Purchase(ProductType product, int amount ) {
 		this.product = product;
 		this.amount = amount;
-		this.basePrice = product.getBasePrice(pricingMethod,amount);
+		this.basePrice = product.getBasePrice(amount);
 		this.discountedPrice = this.basePrice;
 	}
 	public ProductType getProduct() {
