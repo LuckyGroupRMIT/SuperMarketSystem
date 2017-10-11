@@ -82,7 +82,7 @@ public class PurchaseMode {
                         product.getProductID(),
                         product.getName(),
                         product.getSupplier(),
-                        product.getBasePrice(PricingMethod.QUANTITY, 1));
+                        product.getBasePrice(1));
                 indexPos++;
             } while (indexPos % itemNo != 0 && indexPos < products.size());
             if(indexPos < products.size()-10)
@@ -110,7 +110,7 @@ public class PurchaseMode {
                     inp = reader.nextLine();
                     if(inp.equalsIgnoreCase("Y"))
                     {
-                        sale.addPurchase(new Purchase(product, PricingMethod.QUANTITY, amount));
+                        sale.addPurchase(new Purchase(product, amount));
                         System.out.println("Item added to cart!");
                     }
                 }
@@ -153,7 +153,7 @@ public class PurchaseMode {
                         product.getProductID(),
                         product.getName(),
                         product.getSupplier(),
-                        product.getBasePrice(PricingMethod.QUANTITY, 1));
+                        product.getBasePrice( 1));
             }
             System.out.printf("\nTotal cost is: $%.2f\n\n", sale.getTotal());
 

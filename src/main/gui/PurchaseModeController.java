@@ -44,7 +44,7 @@ public class PurchaseModeController implements Initializable{
 
     private ObservableList<ProductType> data;
     private ObservableList<Purchase> cart;
-    private Sale sale;
+    private static Sale sale;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -54,11 +54,11 @@ public class PurchaseModeController implements Initializable{
         prodID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductID()));
         prodName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         prodSupp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSupplier()));
-        prodPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBasePrice()));
+        prodPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBasePrice(1)));
 
         cartQuant.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getAmount()));
         cartName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
-        cartPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getProduct().getBasePrice(cellData.getValue().getPricingMethod(), 1)));
+        cartPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getProduct().getBasePrice(1)));
         cartTotal.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getUndiscountedPrice()));
 
 //        Filter code altered from: http://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
@@ -82,8 +82,6 @@ public class PurchaseModeController implements Initializable{
 
         prodTable.setItems(sortedList);
         cartTable.setItems(cart);
-
-//        pricingMethod.setItems(ObservableList<PricingMethod>());
     }
 
     private void getTableData()
@@ -111,7 +109,7 @@ public class PurchaseModeController implements Initializable{
         if(prodTable.getSelectionModel().getSelectedItem() == null)
             return;
         ProductType productType = prodTable.getSelectionModel().getSelectedItem();
-        Purchase purchase = new Purchase(productType, PricingMethod.QUANTITY, amount);
+        Purchase purchase = new Purchase(productType, amount);
 
         sale.addPurchase(purchase);
         cart.add(purchase);
@@ -129,12 +127,15 @@ public class PurchaseModeController implements Initializable{
     {
         Parent loginRoot = FXMLLoader.load(getClass().getResource("customerLoginPopup.fxml"));
         Scene login = new Scene(loginRoot);
-
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(prodTable.getScene().getWindow());
         stage.setTitle("Customer Login");
         stage.setScene(login);
         stage.show();
+    }
+
+    public static Sale getCart() {
+        return sale;
     }
 }

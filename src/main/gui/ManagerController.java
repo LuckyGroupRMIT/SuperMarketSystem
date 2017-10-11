@@ -53,7 +53,7 @@ public class ManagerController implements Initializable
         prodID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductID()));
         prodName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         prodSupp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSupplier()));
-        prodPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBasePrice(PricingMethod.QUANTITY, 1)));
+        prodPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBasePrice( 1)));
         prodRev.setCellValueFactory(cellData -> new SimpleObjectProperty<>(ProductReport.getProductRevenue(cellData.getValue())));
 
         salesDate.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCurrentDate()));

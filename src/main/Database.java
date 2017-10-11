@@ -6,7 +6,7 @@ import java.util.*;
 public class Database
 {
     private static HashMap<String, ProductType> ProductHash = new HashMap<>();
-    private static HashMap<String, StaffAccount> AccountHash = new HashMap<>();
+    private static HashMap<String, UserAccount> AccountHash = new HashMap<>();
     private static HashMap<String, Discount> DiscountHash = new HashMap<>();
     private static HashMap<String, Sale> SaleHash = new HashMap<>();
 
@@ -49,7 +49,7 @@ public class Database
             try {
                 Object accRead = accIn.readObject();
                 if(accRead instanceof HashMap)
-                    AccountHash = (HashMap<String, StaffAccount>) accRead;
+                    AccountHash = (HashMap<String, UserAccount>) accRead;
             }catch (ClassNotFoundException cls){
                 return false;
             }
@@ -89,8 +89,8 @@ public class Database
             return true;
         }
 
-        else if(value instanceof StaffAccount) {
-            AccountHash.put(key, ((StaffAccount) value));
+        else if(value instanceof UserAccount) {
+            AccountHash.put(key, ((UserAccount) value));
             return true;
         }
 
@@ -113,7 +113,7 @@ public class Database
 
         if(type == ProductType.class)
             object = ProductHash.get(key);
-        else if(type == StaffAccount.class)
+        else if(type == UserAccount.class)
             object = AccountHash.get(key);
         else if(type == Discount.class)
             object = DiscountHash.get(key);
@@ -128,7 +128,7 @@ public class Database
         if(type.equals(ProductType.class))
             if (ProductHash.remove(key) != null)
                 return true;
-        if(type.equals(StaffAccount.class))
+        if(type.equals(UserAccount.class))
             if (AccountHash.remove(key) != null)
                 return true;
         if(type.equals(Discount.class))
@@ -147,10 +147,33 @@ public class Database
         return new ArrayList<>(values);
     }
 
-    public static ArrayList<StaffAccount> listAllAccounts()
+    public static ArrayList<UserAccount> listAllAccounts()
     {
-        Collection<StaffAccount> values = AccountHash.values();
+        Collection<UserAccount> values = AccountHash.values();
         return new ArrayList<>(values);
+    }
+
+    public static ArrayList<CustomerAccount> listAllCustomers()
+    {
+        ArrayList<UserAccount> userAccounts = listAllAccounts();
+        ArrayList<CustomerAccount> customerAccounts = new ArrayList<>();
+        for (UserAccount userAccount:userAccounts)
+            if(userAccount instanceof CustomerAccount)
+                customerAccounts.add((CustomerAccount) userAccount);
+
+
+        return customerAccounts;
+    }
+
+    public static ArrayList<StaffAccount> listAllStaff()
+    {
+        ArrayList<UserAccount> userAccounts = listAllAccounts();
+        ArrayList<StaffAccount> staffAccounts = new ArrayList<>();
+        for(UserAccount userAccount: userAccounts)
+            if(userAccount instanceof StaffAccount)
+                staffAccounts.add((StaffAccount) userAccount);
+
+        return staffAccounts;
     }
 
     public static ArrayList<Sale> listAllSales()
@@ -169,7 +192,7 @@ public class Database
             DiscountHash.clear();
     }
 
-    public static HashMap<String, StaffAccount> getAccountHash() {
+    public static HashMap<String, UserAccount> getAccountHash() {
         return AccountHash;
     }
 }

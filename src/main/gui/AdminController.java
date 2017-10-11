@@ -49,6 +49,8 @@ public class AdminController  implements Initializable
     private ObservableList<ProductType> prodData;
     private ObservableList<StaffAccount> staffData;
 
+    private static boolean staff;
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -57,7 +59,7 @@ public class AdminController  implements Initializable
         prodID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductID()));
         prodName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         prodSupp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSupplier()));
-        prodPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBasePrice(PricingMethod.QUANTITY, 1)));
+        prodPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBasePrice(1)));
         prodStock.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCurrentStock()));
         prodRestock.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getRestockAmount()));
 
@@ -87,7 +89,7 @@ public class AdminController  implements Initializable
             Database.addObject(productType.getProductID(), productType);
         });
 
-        staffID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStaffID()));
+        staffID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getID()));
         staffPass.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPassword()));
         staffPerm.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPermissions().toString()));
 
@@ -98,7 +100,7 @@ public class AdminController  implements Initializable
     private void getTableData()
     {
         prodData = FXCollections.observableArrayList(Database.listAllProducts());
-        staffData = FXCollections.observableArrayList(Database.listAllAccounts());
+        staffData = FXCollections.observableArrayList(Database.listAllStaff());
     }
 
     @FXML private void setExit()
@@ -116,26 +118,10 @@ public class AdminController  implements Initializable
 
     @FXML private void setAdd() throws IOException
     {
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initStyle(StageStyle.UNIFIED);
-        stage.initOwner(prodTable.getScene().getWindow());
-        stage.setTitle("Add Menu");
-
         if(staffTab.isSelected())
-        {
-            Parent staffAddRoot = FXMLLoader.load(getClass().getResource("staffAddPopup.fxml"));
-            Scene staffAdd = new Scene(staffAddRoot);
-            stage.setScene(staffAdd);
-        }
+            runStaffAdd();
         else
-        {
-            Parent prodAddRoot = FXMLLoader.load(getClass().getResource("productAddPopup.fxml"));
-            Scene prodAdd = new Scene(prodAddRoot);
-            stage.setScene(prodAdd);
-        }
-
-        stage.show();
+            runProdAdd();
     }
 
     @FXML private void setRemove()
@@ -143,7 +129,7 @@ public class AdminController  implements Initializable
         if(staffTab.isSelected())
         {
             StaffAccount staff = staffTable.getSelectionModel().getSelectedItem();
-            Database.removeObject(staff.getStaffID(), staff.getClass());
+            Database.removeObject(staff.getID(), staff.getClass());
         }
         else
         {
@@ -151,4 +137,35 @@ public class AdminController  implements Initializable
             Database.removeObject(prod.getProductID(), prod.getClass());
         }
     }
+
+    private void runStaffAdd() throws IOException
+    {
+        staff = true;
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNIFIED);
+        stage.initOwner(prodTable.getScene().getWindow());
+        stage.setTitle("Add Menu");
+        Parent prodAddRoot = FXMLLoader.load(getClass().getResource("staffAddPopup.fxml"));
+        Scene prodAdd = new Scene(prodAddRoot);
+        stage.setScene(prodAdd);
+        stage.show();
+        staff = false;
+    }
+
+    private void runProdAdd() throws IOException
+    {
+        staff = false;
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNIFIED);
+        stage.initOwner(prodTable.getScene().getWindow());
+        stage.setTitle("Add Menu");
+        Parent prodAddRoot = FXMLLoader.load(getClass().getResource("productAddPopup.fxml"));
+        Scene prodAdd = new Scene(prodAddRoot);
+        stage.setScene(prodAdd);
+        stage.show();
+    }
+
+    public static boolean getStaff(){return staff;}
 }

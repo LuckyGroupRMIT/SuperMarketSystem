@@ -1,5 +1,7 @@
 package main;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -7,6 +9,7 @@ public class Sale implements Serializable{
 	// A sale consists of a list of purchases and a list of applicable
 	// discounts. Since globals aren't going to be used each sale needs to
 	// be passed a
+    private static final long serialVersionUID = 1113799434508676095L;
 	private ArrayList<Purchase> purchases;
 	private ArrayList<Discount> discounts;
 	private Date currentDate;
@@ -53,6 +56,16 @@ public class Sale implements Serializable{
 		}
 		return sum;
 	}
+
+	public double getUndiscountedTotal()
+    {
+        double sum = 0;
+        for(Purchase purchase: purchases)
+        {
+            sum += purchase.getUndiscountedPrice();
+        }
+        return sum;
+    }
 	
 	public void addPurchase(Purchase purchase) {
 		this.purchases.add(purchase);

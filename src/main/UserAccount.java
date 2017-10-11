@@ -1,20 +1,17 @@
 package main;
 
-public class UserAccount {
+import java.io.Serializable;
+
+public class UserAccount implements Serializable{
+    private static final long serialVersionUID = 1113799434508676095L;
 	private String username;
-	private String password;
 	
-	public UserAccount(String username, String password){
+	public UserAccount(String username){
 		this.username = username;
-		this.password = password;
 	}
 
-	public String getUsername() {
+	public String getID() {
 		return username;
-	}
-
-	public String getPassword() {
-		return password;
 	}
 	
 }
