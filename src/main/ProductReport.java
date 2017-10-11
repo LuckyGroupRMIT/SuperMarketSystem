@@ -59,7 +59,7 @@ public class ProductReport
             String prodString = "\t" + product.getProductID()
                     + "\t|\t" + product.getName()
                     + "\t|\t" + product.getCurrentStock()
-                    + "\t|\t" + product.getRestock() + "\n";
+                    + "\t|\t" + product.getRestockAmount() + "\n";
             text = text.concat(prodString);
         }
 

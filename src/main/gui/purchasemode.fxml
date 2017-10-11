@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.SplitPane?>
@@ -22,7 +21,7 @@
       <HBox>
          <children>
             <TextField fx:id="prodSearch" prefHeight="32.0" promptText="Enter Item Name or ID Here" HBox.hgrow="SOMETIMES" />
-            <Button fx:id="exit" mnemonicParsing="false" onAction="#setExit" prefHeight="32.0" text="Exit Program">
+            <Button fx:id="exit" mnemonicParsing="false" onAction="#setExit" prefHeight="32.0" text="Exit Program" visible="false">
                <HBox.margin>
                   <Insets left="10.0" right="5.0" />
                </HBox.margin>
@@ -111,14 +110,13 @@
          <children>
             <Pane>
                <children>
-                  <Spinner fx:id="addCounter" />
+                  <Spinner fx:id="addCounter" min="0" max="100" prefHeight="32.0" />
                </children></Pane>
-            <ChoiceBox fx:id="pricingMethod" prefHeight="32.0" prefWidth="148.0" />
             <Button fx:id="btnAddItem" mnemonicParsing="false" onAction="#handleAddItemBtn" prefHeight="32.0" prefWidth="148.0" text="Add Item" />
-            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="148.0" text="Remove Item" />
-            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="148.0" text="Clear Sale" />
+            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="148.0" text="Remove Item" visible="false" />
+            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="148.0" text="Clear Sale" visible="false" />
             <Pane HBox.hgrow="ALWAYS" />
-            <Button fx:id="btnCartFinish" mnemonicParsing="false" prefHeight="32.0" prefWidth="148.0" text="Complete Purchase" />
+            <Button fx:id="btnCartFinish" mnemonicParsing="false" onAction="#setPurchase" prefHeight="32.0" prefWidth="148.0" text="Complete Purchase" />
          </children>
       </HBox>
    </children>

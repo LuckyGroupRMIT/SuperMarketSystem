@@ -59,7 +59,7 @@ public class AdminController  implements Initializable
         prodSupp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSupplier()));
         prodPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBasePrice(PricingMethod.QUANTITY, 1)));
         prodStock.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCurrentStock()));
-        prodRestock.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getRestock()));
+        prodRestock.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getRestockAmount()));
 
         prodName.setOnEditCommit(event -> {
             ProductType prod = event.getRowValue();
@@ -73,7 +73,7 @@ public class AdminController  implements Initializable
         });
         prodPrice.setOnEditCommit(event -> {
             ProductType productType = event.getRowValue();
-            productType.setBasePrice(PricingMethod.QUANTITY, event.getNewValue() != null ? event.getNewValue() : event.getOldValue());
+            productType.setBasePrice(event.getNewValue() != null ? event.getNewValue() : event.getOldValue());
             Database.addObject(productType.getProductID(), productType);
         });
         prodStock.setOnEditCommit(event -> {
@@ -83,7 +83,7 @@ public class AdminController  implements Initializable
         });
         prodRestock.setOnEditCommit(event -> {
             ProductType productType = event.getRowValue();
-            productType.setRestock(event.getNewValue() != null ? event.getNewValue() : event.getOldValue());
+            productType.setRestockAmount(event.getNewValue() != null ? event.getNewValue() : event.getOldValue());
             Database.addObject(productType.getProductID(), productType);
         });
 

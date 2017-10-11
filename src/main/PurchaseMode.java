@@ -28,7 +28,7 @@ public class PurchaseMode {
                     switch (Login.displayLogin())
                     {
                         case MANAGER:
-                            if(Manager.displayManagerMenu())
+//                            if(Manager.displayManagerMenu())
                                 exitProgram = true;
                             break;
                         case SALES:

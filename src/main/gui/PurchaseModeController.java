@@ -19,6 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -53,7 +54,7 @@ public class PurchaseModeController implements Initializable{
         prodID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductID()));
         prodName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         prodSupp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSupplier()));
-        prodPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBasePrice(PricingMethod.QUANTITY, 1)));
+        prodPrice.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBasePrice()));
 
         cartQuant.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getAmount()));
         cartName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduct().getName()));
@@ -107,6 +108,8 @@ public class PurchaseModeController implements Initializable{
     @FXML private void handleAddItemBtn() throws Exception
     {
         int amount = (int)addCounter.getValue();
+        if(prodTable.getSelectionModel().getSelectedItem() == null)
+            return;
         ProductType productType = prodTable.getSelectionModel().getSelectedItem();
         Purchase purchase = new Purchase(productType, PricingMethod.QUANTITY, amount);
 
@@ -120,5 +123,18 @@ public class PurchaseModeController implements Initializable{
     @FXML private void setExit()
     {
         Platform.exit();
+    }
+
+    @FXML private void setPurchase() throws IOException
+    {
+        Parent loginRoot = FXMLLoader.load(getClass().getResource("customerLoginPopup.fxml"));
+        Scene login = new Scene(loginRoot);
+
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(prodTable.getScene().getWindow());
+        stage.setTitle("Customer Login");
+        stage.setScene(login);
+        stage.show();
     }
 }

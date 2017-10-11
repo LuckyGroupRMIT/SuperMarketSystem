@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane prefHeight="180.0" prefWidth="457.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.gui.AddPopupController">
+<GridPane prefHeight="281.0" prefWidth="457.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.gui.AddPopupController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="59.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="175.0" />
@@ -25,33 +26,75 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <TextField fx:id="prodID" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <TextField fx:id="prodName" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <TextField fx:id="prodSupp" layoutX="111.0" layoutY="55.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <TextField fx:id="prodPrice" layoutX="244.0" layoutY="73.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <Label text="Product ID:" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
-      </Label>
-      <Label text="Product Name:" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
-      </Label>
-      <Label text="Product Supplier:" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
-      </Label>
-      <Label layoutX="30.0" layoutY="36.0" text="Price Per Item" GridPane.columnIndex="1" GridPane.rowIndex="4">
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
-      </Label>
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+      <HBox GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+         <children>
+            <Label text="Product ID:" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="prodID" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets left="35.0" />
+               </HBox.margin></TextField>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+         <children>
+            <Label text="Product Name:" />
+            <TextField fx:id="prodName" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets left="25.0" />
+               </HBox.margin></TextField>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+         <children>
+            <Label text="Product Supplier:" />
+            <TextField fx:id="prodSupp" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets left="13.0" />
+               </HBox.margin></TextField>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
+         <children>
+            <Label text="Base Price" />
+            <TextField fx:id="prodPrice" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox layoutX="34.0" layoutY="112.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
+         <children>
+            <Label text="Restock Amount:">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Label>
+            <TextField fx:id="prodRestock" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets left="14.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6">
+         <children>
+            <Label text="Pricing Method:" />
+            <ChoiceBox fx:id="prodMethod" prefWidth="150.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </ChoiceBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
          <children>
             <Pane HBox.hgrow="ALWAYS" />
             <Button fx:id="prodAdd" defaultButton="true" minWidth="100.0" mnemonicParsing="false" onAction="#setProdAdd" text="Add">

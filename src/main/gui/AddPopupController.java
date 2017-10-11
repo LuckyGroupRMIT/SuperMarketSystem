@@ -18,6 +18,8 @@ public class AddPopupController
     @FXML TextField prodName;
     @FXML TextField prodSupp;
     @FXML TextField prodPrice;
+    @FXML TextField prodRestock;
+    @FXML ChoiceBox<PricingMethod> prodMethod;
 
     @FXML Button cancel;
 
@@ -37,8 +39,8 @@ public class AddPopupController
 
     @FXML private void setProdAdd()
     {
-        ProductType product = new ProductType(prodID.getText(), prodName.getText(), prodSupp.getText());
-        product.setBasePrice(PricingMethod.QUANTITY, Double.parseDouble(prodPrice.getText()));
+        ProductType product = new ProductType(prodID.getText(), prodName.getText(), prodSupp.getText(),
+                Integer.parseInt(prodRestock.getText()), prodMethod.getValue(), Double.parseDouble(prodPrice.getText()));
         if(!Database.addObject(product.getProductID(), product))
             System.out.println("FAILED");
         Stage stage = (Stage)cancel.getScene().getWindow();
