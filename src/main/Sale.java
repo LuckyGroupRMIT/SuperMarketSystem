@@ -1,5 +1,6 @@
 package main;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Sale {
 	// A sale consists of a list of purchases and a list of applicable
@@ -7,6 +8,8 @@ public class Sale {
 	// be passed a
 	private ArrayList<Purchase> purchases;
 	private ArrayList<Discount> discounts;
+	private Date date;
+	private CustomerAccount customer;
 	
 	public ArrayList<Purchase> getPurchases() {
 		return purchases;
@@ -48,6 +51,18 @@ public class Sale {
 			sum += this.purchases.get(i).getDiscountedPrice();
 		}
 		return sum;
+	}
+	public void setCustomer(CustomerAccount c) {
+		this.customer = c;
+	}
+	public void getCustomer(CustomerAccount c) {
+		return this.customer;
+	}
+	public setDate(Date date) {
+		this.date = date;
+	}
+	public getDate(Date date) {
+		return this.date;
 	}
 	
 	public void addPurchase(Purchase purchase) {

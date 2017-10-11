@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class ProductType implements Serializable{
+	private String name;
 	private int currentStock;
 	private int restockAmount;
-	private String name;
 	private String supplier;
 	private String productID;
 	private double basePrice;
