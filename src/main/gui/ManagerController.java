@@ -60,11 +60,15 @@ public class ManagerController implements Initializable
     private ObservableList<Sale> saleData;
     private ObservableList<BulkDiscount> discData;
     private FilteredList<Sale> filteredList;
-    SortedList<Sale> sortedList;
+    private SortedList<Sale> sortedList;
+    private URL loc;
+    private ResourceBundle res;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        loc = location;
+        res = resources;
         getTableData();
 
         prodID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductID()));
@@ -154,7 +158,8 @@ public class ManagerController implements Initializable
         Parent discAddRoot = FXMLLoader.load(getClass().getResource("discountAddPopup.fxml"));
         Scene discAdd = new Scene(discAddRoot);
         stage.setScene(discAdd);
-        stage.show();
+        stage.showAndWait();
+        initialize(loc,res);
     }
 
     @FXML private void setSupplyGen() throws Exception

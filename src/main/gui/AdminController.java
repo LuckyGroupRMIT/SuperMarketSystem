@@ -48,6 +48,8 @@ public class AdminController  implements Initializable
 
     private ObservableList<ProductType> prodData;
     private ObservableList<StaffAccount> staffData;
+    private URL loc;
+    private ResourceBundle res;
 
     private static boolean staff;
     private static boolean product;
@@ -55,6 +57,8 @@ public class AdminController  implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        loc = location;
+        res = resources;
         getTableData();
 
         prodID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductID()));
@@ -150,8 +154,9 @@ public class AdminController  implements Initializable
         Parent prodAddRoot = FXMLLoader.load(getClass().getResource("staffAddPopup.fxml"));
         Scene prodAdd = new Scene(prodAddRoot);
         stage.setScene(prodAdd);
-        stage.show();
+        stage.showAndWait();
         staff = false;
+        initialize(loc,res);
     }
 
     private void runProdAdd() throws IOException
@@ -165,8 +170,9 @@ public class AdminController  implements Initializable
         Parent prodAddRoot = FXMLLoader.load(getClass().getResource("productAddPopup.fxml"));
         Scene prodAdd = new Scene(prodAddRoot);
         stage.setScene(prodAdd);
-        stage.show();
+        stage.showAndWait();
         product = false;
+        initialize(loc,res);
     }
 
     public static boolean getStaff(){return staff;}

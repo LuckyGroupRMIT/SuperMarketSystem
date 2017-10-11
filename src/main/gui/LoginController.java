@@ -49,13 +49,14 @@ public class LoginController
         {
             if(Login.checkStaffDetails(userID.getText(), password.getText()))
             {
+                Stage stage = (Stage)login.getScene().getWindow();
                 switch (Login.checkPermissions(userID.getText()))
                 {
                     case SALES:
                         PurchaseModeController.setSalesmode(true);
+                        stage.close();
                         break;
                     case MANAGER:
-                        Stage stage = (Stage)login.getScene().getWindow();
                         Stage owner = (Stage)stage.getOwner();
 
                         Parent managerRoot = FXMLLoader.load(getClass().getResource("managermenu.fxml"));

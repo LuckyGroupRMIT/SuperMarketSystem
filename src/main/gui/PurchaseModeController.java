@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.SpinnerValueFactory.*;
 
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -41,6 +42,7 @@ public class PurchaseModeController implements Initializable{
     @FXML private Spinner addCounter;
     @FXML private Label gCost;
     @FXML private Label tCost;
+    @FXML private Label indicator;
 
     @FXML private Button exit;
     @FXML private Button remove;
@@ -57,6 +59,8 @@ public class PurchaseModeController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        loc = location;
+        res = resources;
 
         getTableData();
         setCells();
@@ -76,6 +80,20 @@ public class PurchaseModeController implements Initializable{
                 return false;
             });
         });
+
+        prodTable.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+            if(newValue != null && newValue.getPricingMethod().equals(PricingMethod.QUANTITY)) {
+                IntegerSpinnerValueFactory spinnerValueFactory = new IntegerSpinnerValueFactory(0, 100000, 1,1);
+                addCounter.setValueFactory(spinnerValueFactory);
+                indicator.setText("items");
+            }
+            else if(newValue != null && newValue.getPricingMethod().equals(PricingMethod.WEIGHT)) {
+                indicator.setText("grams");
+                IntegerSpinnerValueFactory spinnerValueFactory = new IntegerSpinnerValueFactory(0, 100000, 1,100);
+                addCounter.setValueFactory(spinnerValueFactory);
+            }
+
+        }));
 
         sortedList = new SortedList<>(filteredList);
         sortedList.comparatorProperty().bind(prodTable.comparatorProperty());
@@ -102,8 +120,9 @@ public class PurchaseModeController implements Initializable{
         stage.initOwner(prodTable.getScene().getWindow());
         stage.setTitle("Staff Login");
         stage.setScene(popup);
-        stage.show();
+        stage.showAndWait();
         changeMode();
+        initialize(loc, res);
     }
 
     @FXML private void handleAddItemBtn() throws Exception
