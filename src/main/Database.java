@@ -182,6 +182,12 @@ public class Database
         return new ArrayList<>(values);
     }
 
+    public static ArrayList<Sale> listAllSales()
+    {
+        Collection<Sale> values = SaleHash.values();
+        return new ArrayList<>(values);
+    }
+
     public static void clearHashMap(Class type)
     {
         if(type.equals(ProductType.class))
