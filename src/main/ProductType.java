@@ -2,32 +2,32 @@ package main;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Set;
 
 public class ProductType implements Serializable{
 	private int currentStock;
-	private int restock;
+	private int restockAmount;
 	private String name;
 	private String supplier;
-	private HashMap<PricingMethod, Double> prices;
 	private String productID;
+	private double basePrice;
+	private ArrayList<Discount> discounts;
+	private PricingMethod pricingMethod;
 	
-	public ProductType(String productID,String name, String supplier){
-		this. productID = productID;
-		this.setName(name);
+	public ProductType(String productID,String name, String supplier,int restockAmount,PricingMethod method, double basePrice){
+		this.productID = productID;
+		this.name = name;
 		this.supplier = supplier;
-		prices = new HashMap<>();
+		this.pricingMethod = method;
+		this.basePrice = basePrice;
+		this.currentStock = 0;
+		this.restockAmount = restockAmount; 
 	}
 	public Double getBasePrice(PricingMethod x, int amount) {
-		return this.prices.get(x);
+		return this.basePrice;
 	}
-	public Set<PricingMethod> availablePrices() {
-		return this.prices.keySet();
-	}
-
-	public void setBasePrice(PricingMethod pricingMethod, double price) {
-		this.prices.put(pricingMethod,price);
+	public void setBasePrice(double price) {
+		this.basePrice = price;
 	}
 
 	public int getCurrentStock() {
@@ -38,12 +38,15 @@ public class ProductType implements Serializable{
 		this.currentStock = currentStock;
 	}
 
-	public int getRestock() {
-		return restock;
+	public int getRestockAmount() {
+		return restockAmount;
+	}
+	public Boolean isLowOnStock() {
+		return this.currentStock<=this.restockAmount;
 	}
 
-	public void setRestock(int restock) {
-		this.restock = restock;
+	public void setRestockAmount(int restock) {
+		this.restockAmount = restock;
 	}
 
 	public String getSupplier() {
@@ -53,13 +56,18 @@ public class ProductType implements Serializable{
     public void setSupplier(String supplier) {
         this.supplier = supplier;
     }
+    public void addProductDiscount(Discount x) {
+    	this.discounts.add(x);
+    }
+    public void removeProductDiscount(Discount x) {
+    	this.discounts.remove(x);
+    }
 
     // Get Price methods should raise an exception if a price is requested
 	// That they can't handle. e.g Brooms are asked for price by weight when
 	// they are priced by quantity
 	public ArrayList<Discount> getProductSpecificDiscounts() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.discounts;
 	}
 	public String getProductID() {
 		return productID;

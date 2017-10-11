@@ -8,7 +8,7 @@ import org.junit.Test;
 import main.UserAccountInterface;
 import main.UserAccountSystem;
 
-public class UserAccountSystemTest {
+public class UserAccountTest {
 	
 	private UserAccountSystem accountSystem;
 	@Before
@@ -43,4 +43,3 @@ public class UserAccountSystemTest {
 	}
 	
 }
-

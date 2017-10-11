@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DatabaseTest
+public class DatabaseTest 
 {
     private StaffAccount staff;
     private ArrayList<StaffAccount> staffList;
