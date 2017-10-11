@@ -5,10 +5,10 @@ public class BulkDiscount implements Discount {
 	String name;
 	int amount;
 	double percentage;
-	public BulkDiscount(String name, int amount, double percentage) {
+	public BulkDiscount(String name, int amount, double percentageOff) {
 		this.name = name;
 		this.amount = amount;
-		this.percentage = percentage;
+		this.percentage = percentageOff;
 	}
 	
 

@@ -30,7 +30,7 @@ public class Sale {
 			ArrayList<Discount> discounts = productPurchased.getProductSpecificDiscounts();
 			this.purchases.get(i).resetDiscounts();
 			Discount mostApplicableDiscount = null;
-			for (int j = 0; j<discounts.size(); i++) {
+			for (int j = 0; j<discounts.size(); j++) {
 				Discount eachDiscount = discounts.get(j);
 				double x = eachDiscount.apply(eachPurchase);
 				if (x>0) {
