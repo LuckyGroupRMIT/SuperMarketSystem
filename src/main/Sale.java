@@ -1,12 +1,15 @@
 package main;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class Sale {
+public class Sale implements Serializable{
 	// A sale consists of a list of purchases and a list of applicable
 	// discounts. Since globals aren't going to be used each sale needs to
 	// be passed a
 	private ArrayList<Purchase> purchases;
 	private ArrayList<Discount> discounts;
+	private Date currentDate;
 	
 	public ArrayList<Purchase> getPurchases() {
 		return purchases;
@@ -20,6 +23,7 @@ public class Sale {
 	public Sale() {
 		this.purchases = new ArrayList<Purchase>();
 		this.discounts = new ArrayList<Discount>();
+		currentDate = new Date();
 	}
 	
 	public void recalculateDiscounts() {
@@ -59,4 +63,8 @@ public class Sale {
 		this.purchases.remove(i-1);
 //		this.recalculateDiscounts();
 	}
+
+    public Date getCurrentDate() {
+        return currentDate;
+    }
 }

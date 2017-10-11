@@ -1,11 +1,16 @@
 package main;
 
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
 public class ProductType implements Serializable{
+    private static final long serialVersionUID = 1113799434508676095L;
+
 	private int currentStock;
 	private int restock;
 	private String name;
@@ -20,7 +25,7 @@ public class ProductType implements Serializable{
 		prices = new HashMap<>();
 	}
 	public Double getBasePrice(PricingMethod x, int amount) {
-		return this.prices.get(x);
+		return this.prices.get(x) * amount;
 	}
 	public Set<PricingMethod> availablePrices() {
 		return this.prices.keySet();
@@ -70,4 +75,9 @@ public class ProductType implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Property<String> prodIDProperty()
+    {
+        return new SimpleStringProperty(name);
+    }
 }

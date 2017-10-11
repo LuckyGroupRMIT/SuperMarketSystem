@@ -28,7 +28,8 @@ public class PurchaseMode {
                     switch (Login.displayLogin())
                     {
                         case MANAGER:
-                            Manager.displayManagerMenu();
+                            if(Manager.displayManagerMenu())
+                                exitProgram = true;
                             break;
                         case SALES:
                             if(displayEmployeeMenu(newSale))
@@ -68,22 +69,22 @@ public class PurchaseMode {
 
         while(!exitLoop)
         {
-            System.out.println("\tid\t\t|\tname\t|\tbrand\t\t|\tprice");
-            System.out.println("-------------------------------------------------");
+            System.out.printf("\t%10s\t|\t%20s\t|\t%20s\t|\t%s\n",
+                    "ID", "name", "brand", "price");
+            System.out.println(new String(new char[90]).replace("\0", "-"));
             if(indexPos > 10)
                 System.out.println("P. Go to previous page");
-            for (int pos = indexPos; pos % itemNo == 0; pos++)
-            {
-                ProductType product = products.get(pos);
+            do {
+                ProductType product = products.get(indexPos);
 
-                System.out.printf("%d. %s\t|\t%s\t|\t%s\t|\t$%.2f\n",
-                        pos,
+                System.out.printf("%d. %10s\t|\t%20s\t|\t%20s\t|\t$%.2f\n",
+                        indexPos,
                         product.getProductID(),
                         product.getName(),
                         product.getSupplier(),
                         product.getBasePrice(PricingMethod.QUANTITY, 1));
                 indexPos++;
-            }
+            } while (indexPos % itemNo != 0 && indexPos < products.size());
             if(indexPos < products.size()-10)
                 System.out.println("N. Go to next page");
 
@@ -96,11 +97,12 @@ public class PurchaseMode {
                 if(inp.matches("[0:9]"))
                 {
                     int choice = Integer.parseInt(inp);
-                    ProductType product = products.get(choice);
-                    if(product == null) {
+                    if(choice > products.size()) {
                         System.out.println("Error: no such item exists");
                         continue;
                     }
+                    ProductType product = products.get(choice);
+
 
                     System.out.printf("Enter the amount of %s to add to cart, or enter empty line to cancel: ", product.getName());
                     int amount = Integer.parseInt(reader.nextLine());
@@ -134,6 +136,7 @@ public class PurchaseMode {
     private static void displayShoppingCart(Sale sale)
     {
         ArrayList<Purchase> cart = sale.getPurchases();
+        Scanner reader = new Scanner(System.in);
 
         if(cart.isEmpty())
             System.out.println("Your shopping cart is currently empty.");
@@ -153,6 +156,11 @@ public class PurchaseMode {
                         product.getBasePrice(PricingMethod.QUANTITY, 1));
             }
             System.out.printf("\nTotal cost is: $%.2f\n\n", sale.getTotal());
+
+            System.out.print("Do you want to purchase all items in cart? (Y/N): ");
+            String inp = reader.nextLine();
+            if(inp.equalsIgnoreCase("Y"))
+                makeSale(sale);
         }
     }
 
@@ -214,5 +222,10 @@ public class PurchaseMode {
         }
 
         return false;
+    }
+
+    private static void makeSale(Sale sale)
+    {
+//        sale.getCurrentDate().toString();
     }
 }

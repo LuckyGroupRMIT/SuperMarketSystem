@@ -8,20 +8,24 @@ public class Database
     private static HashMap<String, ProductType> ProductHash = new HashMap<>();
     private static HashMap<String, StaffAccount> AccountHash = new HashMap<>();
     private static HashMap<String, Discount> DiscountHash = new HashMap<>();
+    private static HashMap<String, Sale> SaleHash = new HashMap<>();
 
     public static void saveAllMaps() throws IOException
     {
         ObjectOutputStream prodOut = new ObjectOutputStream(new FileOutputStream("product.dat"));
         ObjectOutputStream accOut = new ObjectOutputStream(new FileOutputStream("account.dat"));
 //        ObjectOutputStream discOut = new ObjectOutputStream(new FileOutputStream("discount.dat"));
+        ObjectOutputStream saleOut = new ObjectOutputStream(new FileOutputStream("sales.dat"));
 
         prodOut.writeObject(ProductHash);
         accOut.writeObject(AccountHash);
 //        discOut.writeObject(DiscountHash);
+        saleOut.writeObject(SaleHash);
 
         prodOut.close();
         accOut.close();
 //        discOut.close();
+        saleOut.close();
 
     }
 
@@ -31,7 +35,7 @@ public class Database
         {
             ObjectInputStream prodIn = new ObjectInputStream(new FileInputStream("product.dat"));
             try {
-                Object prodRead = prodIn.readObject();
+                HashMap<String, ProductType> prodRead = (HashMap<String, ProductType>)prodIn.readObject();
                 if(prodRead instanceof HashMap)
                     ProductHash = (HashMap<String, ProductType>) prodRead;
             }catch (ClassNotFoundException cls){
@@ -63,6 +67,18 @@ public class Database
             }
         }
 
+        if(new File("sales.dat").exists())
+        {
+            ObjectInputStream saleIn = new ObjectInputStream(new FileInputStream("sales.dat"));
+            try {
+                Object saleRead = saleIn.readObject();
+                if(saleRead instanceof HashMap)
+                    SaleHash = (HashMap<String, Sale>) saleRead;
+            }catch (ClassNotFoundException cls){
+                return false;
+            }
+        }
+
         return true;
     }
 
@@ -83,6 +99,11 @@ public class Database
             return true;
         }
 
+        else if(value instanceof Sale) {
+            SaleHash.put(key, ((Sale) value));
+            return true;
+        }
+
         return false;
     }
 
@@ -96,6 +117,8 @@ public class Database
             object = AccountHash.get(key);
         else if(type == Discount.class)
             object = DiscountHash.get(key);
+        else if(type == Sale.class)
+            object = SaleHash.get(key);
 
         return object;
     }
@@ -111,7 +134,9 @@ public class Database
         if(type.equals(Discount.class))
             if (DiscountHash.remove(key) != null)
                 return true;
-
+        if(type.equals(Sale.class))
+            if (SaleHash.remove(key) != null)
+                return true;
 
         return false;
     }
@@ -125,6 +150,12 @@ public class Database
     public static ArrayList<StaffAccount> listAllAccounts()
     {
         Collection<StaffAccount> values = AccountHash.values();
+        return new ArrayList<>(values);
+    }
+
+    public static ArrayList<Sale> listAllSales()
+    {
+        Collection<Sale> values = SaleHash.values();
         return new ArrayList<>(values);
     }
 

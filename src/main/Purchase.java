@@ -1,33 +1,43 @@
 package main;
 
-public class Purchase {
+import java.io.Serializable;
+
+public class Purchase implements Serializable{
 	// Represents a purchase of a certain item for a certified price'
 	private ProductType product;
 	private int amount;
 	private double basePrice;
 	private double discountedPrice;
 	private PricingMethod pricingMethod;
+
 	public Purchase(ProductType product, PricingMethod pricingMethod, int amount ) {
 		this.product = product;
 		this.amount = amount;
+		this.pricingMethod = pricingMethod;
 		this.basePrice = product.getBasePrice(pricingMethod,amount);
 		this.discountedPrice = this.basePrice;
 	}
+
 	public ProductType getProduct() {
 		return this.product;
 	}
+
 	public int getAmount() {
 		return this.amount;
 	}
+
 	public double getPrice() {
 		return this.basePrice;
 	}
+
 	public double getDiscountedPrice() {
 		return this.discountedPrice;
 	}
+
 	public PricingMethod getPricingMethod() {
 		return this.pricingMethod;
 	}
+
 	public boolean applyDiscount(double discountValue) {
 		// Discounts don't stack. Returns true if the discount applies, false otherwise
 		double newDiscountedPrice = this.basePrice - discountValue;
@@ -38,12 +48,15 @@ public class Purchase {
 			return false;
 		}	
 	}
+
 	public void resetDiscounts() {
 		this.discountedPrice = this.basePrice;
 	}
+
 	public double getUndiscountedPrice() {
 		return basePrice;
 	}
+
 	public void setDiscountedPrice(double newDiscountedPrice) {
 		this.discountedPrice = newDiscountedPrice;
 	}
