@@ -81,19 +81,19 @@ public class PurchaseModeController implements Initializable{
             });
         });
 
-        prodTable.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
-            if(newValue != null && newValue.getPricingMethod().equals(PricingMethod.QUANTITY)) {
-                IntegerSpinnerValueFactory spinnerValueFactory = new IntegerSpinnerValueFactory(0, 100000, 1,1);
-                addCounter.setValueFactory(spinnerValueFactory);
-                indicator.setText("items");
-            }
-            else if(newValue != null && newValue.getPricingMethod().equals(PricingMethod.WEIGHT)) {
-                indicator.setText("grams");
-                IntegerSpinnerValueFactory spinnerValueFactory = new IntegerSpinnerValueFactory(0, 100000, 1,100);
-                addCounter.setValueFactory(spinnerValueFactory);
-            }
-
-        }));
+//        prodTable.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+//            if(newValue != null && newValue.getPricingMethod().equals(PricingMethod.QUANTITY)) {
+//                IntegerSpinnerValueFactory spinnerValueFactory = new IntegerSpinnerValueFactory(0, 100000, 1,1);
+//                addCounter.setValueFactory(spinnerValueFactory);
+//                indicator.setText("items");
+//            }
+//            else if(newValue != null && newValue.getPricingMethod().equals(PricingMethod.WEIGHT)) {
+//                indicator.setText("grams");
+//                IntegerSpinnerValueFactory spinnerValueFactory = new IntegerSpinnerValueFactory(0, 100000, 1,100);
+//                addCounter.setValueFactory(spinnerValueFactory);
+//            }
+//
+//        }));
 
         sortedList = new SortedList<>(filteredList);
         sortedList.comparatorProperty().bind(prodTable.comparatorProperty());
@@ -167,7 +167,8 @@ public class PurchaseModeController implements Initializable{
         stage.initOwner(prodTable.getScene().getWindow());
         stage.setTitle("Customer Login");
         stage.setScene(login);
-        stage.show();
+        stage.showAndWait();
+        setRefresh();
     }
 
     public static Sale getCart() {
